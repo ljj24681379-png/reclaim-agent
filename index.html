@@ -1,0 +1,1999 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>归仓 Reclaim · 主动式个人权益 Agent｜产品设计作品集</title>
+<style>
+:root{
+  --bg:#0A0D13;
+  --bg-soft:#0E1219;
+  --card:#131926;
+  --card-2:#171E2D;
+  --line:#232C3F;
+  --line-soft:#1B2333;
+  --tx:#E7ECF5;
+  --tx-2:#96A0B5;
+  --tx-3:#6B7688;
+  --gold:#E8B44A;
+  --gold-soft:rgba(232,180,74,.12);
+  --cyan:#4FD1C5;
+  --cyan-soft:rgba(79,209,197,.12);
+  --red:#E5566B;
+  --red-soft:rgba(229,86,107,.12);
+  --green:#5EC98A;
+  --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--tx);
+  font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Source Han Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+
+/* ---------- nav ---------- */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(10,13,19,.86);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line-soft);
+}
+.nav-in{max-width:1120px;margin:0 auto;padding:0 28px;display:flex;align-items:center;gap:26px;height:58px;}
+.brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:15px;letter-spacing:.3px;white-space:nowrap;}
+.brand .dot{width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px rgba(232,180,74,.7);}
+.nav-links{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap;}
+.nav-links a{
+  color:var(--tx-2);text-decoration:none;font-size:13px;padding:6px 11px;border-radius:8px;
+  transition:.18s;white-space:nowrap;
+}
+.nav-links a:hover{color:var(--tx);background:var(--card);}
+
+/* ---------- hero ---------- */
+header.hero{padding:82px 0 64px;position:relative;overflow:hidden;}
+header.hero:before{
+  content:"";position:absolute;top:-220px;left:50%;transform:translateX(-50%);
+  width:900px;height:460px;
+  background:radial-gradient(ellipse at center,rgba(232,180,74,.10),transparent 68%);
+  pointer-events:none;
+}
+.tagline{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;color:var(--gold);background:var(--gold-soft);
+  border:1px solid rgba(232,180,74,.28);
+  padding:5px 13px;border-radius:20px;letter-spacing:.5px;margin-bottom:22px;
+}
+h1{font-size:47px;line-height:1.18;letter-spacing:-.5px;font-weight:800;margin-bottom:6px;}
+h1 .en{display:block;font-size:19px;font-weight:500;color:var(--tx-3);letter-spacing:3px;margin-top:12px;}
+.sub{font-size:18px;color:var(--tx-2);max-width:760px;margin-top:20px;line-height:1.75;}
+.sub b{color:var(--gold);font-weight:600;}
+
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px;}
+.kpi-c{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px 22px 20px;position:relative;overflow:hidden;}
+.kpi-c:after{content:"";position:absolute;left:0;top:0;width:100%;height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
+.kpi-n{font-size:38px;font-weight:800;color:var(--gold);letter-spacing:-1px;line-height:1.1;}
+.kpi-n small{font-size:17px;font-weight:600;margin-left:2px;}
+.kpi-l{font-size:13px;color:var(--tx-2);margin-top:8px;font-weight:500;}
+.kpi-s{font-size:11.5px;color:var(--tx-3);margin-top:7px;line-height:1.6;}
+
+/* ---------- sections ---------- */
+section{padding:66px 0;border-top:1px solid var(--line-soft);scroll-margin-top:64px;}
+.sec-h{margin-bottom:36px;}
+.sec-no{font-size:12px;color:var(--gold);letter-spacing:2.5px;font-weight:700;margin-bottom:10px;}
+.sec-t{font-size:30px;font-weight:750;letter-spacing:-.3px;line-height:1.3;}
+.sec-d{font-size:15px;color:var(--tx-2);margin-top:13px;max-width:820px;line-height:1.8;}
+
+h3{font-size:19px;font-weight:700;margin:34px 0 16px;display:flex;align-items:center;gap:10px;}
+h3:before{content:"";width:3px;height:16px;background:var(--gold);border-radius:2px;}
+h4{font-size:15px;font-weight:650;margin:22px 0 10px;color:var(--tx);}
+p{font-size:14.5px;color:var(--tx-2);margin-bottom:13px;}
+p strong,li strong{color:var(--tx);font-weight:600;}
+
+/* ---------- table ---------- */
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px;}
+th{
+  text-align:left;padding:11px 14px;background:var(--card-2);color:var(--tx-2);
+  font-size:12px;font-weight:600;letter-spacing:.5px;border-bottom:1px solid var(--line);
+}
+td{padding:13px 14px;border-bottom:1px solid var(--line-soft);color:var(--tx-2);vertical-align:top;line-height:1.65;}
+tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:rgba(255,255,255,.018);}
+td.b{color:var(--tx);font-weight:600;}
+.num{font-variant-numeric:tabular-nums;}
+
+/* ---------- cards ---------- */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;}
+.card-t{font-size:15px;font-weight:700;margin-bottom:9px;display:flex;align-items:center;gap:8px;}
+.card-d{font-size:13.5px;color:var(--tx-2);line-height:1.75;}
+.pill{font-size:11px;padding:2px 8px;border-radius:5px;font-weight:600;letter-spacing:.3px;}
+.pill.g{background:var(--gold-soft);color:var(--gold);}
+.pill.c{background:var(--cyan-soft);color:var(--cyan);}
+.pill.r{background:var(--red-soft);color:var(--red);}
+.pill.n{background:rgba(150,160,181,.13);color:var(--tx-2);}
+
+/* ---------- bar chart ---------- */
+.bars{display:flex;flex-direction:column;gap:15px;margin:20px 0;}
+.bar-row{display:grid;grid-template-columns:150px 1fr 108px;align-items:center;gap:14px;}
+.bar-lb{font-size:13px;color:var(--tx-2);text-align:right;line-height:1.4;}
+.bar-tr{height:30px;background:var(--bg-soft);border-radius:7px;overflow:hidden;border:1px solid var(--line-soft);}
+.bar-fl{height:100%;border-radius:6px;width:0;transition:width 1.1s cubic-bezier(.2,.8,.2,1);display:flex;align-items:center;justify-content:flex-end;padding-right:10px;}
+.bar-fl.gold{background:linear-gradient(90deg,rgba(232,180,74,.30),rgba(232,180,74,.85));}
+.bar-fl.cyan{background:linear-gradient(90deg,rgba(79,209,197,.25),rgba(79,209,197,.8));}
+.bar-fl.red{background:linear-gradient(90deg,rgba(229,86,107,.25),rgba(229,86,107,.8));}
+.bar-v{font-size:13.5px;font-weight:700;color:var(--tx);text-align:left;font-variant-numeric:tabular-nums;}
+.bar-v small{color:var(--tx-3);font-weight:400;font-size:11.5px;display:block;}
+
+/* ---------- callout ---------- */
+.callout{
+  background:linear-gradient(135deg,rgba(232,180,74,.07),rgba(232,180,74,.02));
+  border:1px solid rgba(232,180,74,.22);border-left:3px solid var(--gold);
+  border-radius:11px;padding:20px 24px;margin:22px 0;
+}
+.callout.c2{background:linear-gradient(135deg,rgba(79,209,197,.06),rgba(79,209,197,.015));border-color:rgba(79,209,197,.22);border-left-color:var(--cyan);}
+.callout.r2{background:linear-gradient(135deg,rgba(229,86,107,.06),rgba(229,86,107,.015));border-color:rgba(229,86,107,.22);border-left-color:var(--red);}
+.callout-t{font-size:14.5px;font-weight:700;color:var(--gold);margin-bottom:9px;display:flex;align-items:center;gap:8px;}
+.callout.c2 .callout-t{color:var(--cyan);}
+.callout.r2 .callout-t{color:var(--red);}
+.callout p{margin-bottom:0;font-size:14px;}
+.callout p+p{margin-top:9px;}
+
+/* ---------- list ---------- */
+ul.li{list-style:none;margin:12px 0;}
+ul.li li{font-size:14px;color:var(--tx-2);padding-left:20px;position:relative;margin-bottom:9px;line-height:1.72;}
+ul.li li:before{content:"";position:absolute;left:2px;top:10px;width:5px;height:5px;border-radius:50%;background:var(--gold);}
+ul.li li b{color:var(--tx);font-weight:600;}
+
+/* ---------- arch ---------- */
+.arch{background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--r);padding:26px 20px;margin:22px 0;overflow-x:auto;}
+.arch svg{display:block;margin:0 auto;min-width:760px;}
+
+/* ---------- demo ---------- */
+.demo{
+  background:var(--bg-soft);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:24px;
+}
+.demo-top{
+  padding:14px 20px;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:12px;background:var(--card);
+}
+.demo-dots{display:flex;gap:6px;}
+.demo-dots i{width:10px;height:10px;border-radius:50%;background:#2C3547;display:block;}
+.demo-dots i:first-child{background:#E5566B;}
+.demo-dots i:nth-child(2){background:#E8B44A;}
+.demo-dots i:nth-child(3){background:#5EC98A;}
+.demo-title{font-size:13px;color:var(--tx-2);font-weight:600;}
+.demo-steps{margin-left:auto;display:flex;gap:6px;}
+.step-pill{
+  font-size:11px;padding:4px 11px;border-radius:20px;background:#1B2333;color:var(--tx-3);
+  font-weight:600;transition:.25s;border:1px solid transparent;
+}
+.step-pill.on{background:var(--gold-soft);color:var(--gold);border-color:rgba(232,180,74,.3);}
+.step-pill.done{color:var(--green);background:rgba(94,201,138,.1);}
+.demo-body{padding:24px;min-height:420px;}
+
+/* push card */
+.push-note{
+  display:flex;gap:12px;align-items:flex-start;
+  background:var(--card);border:1px solid var(--line);border-radius:11px;padding:14px 16px;margin-bottom:18px;
+}
+.push-av{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--gold),#C9963A);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.push-tx{font-size:13.5px;color:var(--tx-2);line-height:1.65;}
+.push-tx b{color:var(--tx);}
+
+.ecard{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:11px;
+  overflow:hidden;transition:.22s;
+}
+.ecard.sel{border-color:rgba(232,180,74,.45);box-shadow:0 0 0 1px rgba(232,180,74,.18);}
+.ecard.dim{opacity:.44;}
+.ec-head{display:flex;align-items:center;gap:14px;padding:15px 18px;cursor:pointer;user-select:none;}
+.ec-ic{width:38px;height:38px;border-radius:10px;background:var(--card-2);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;border:1px solid var(--line);}
+.ec-main{flex:1;min-width:0;}
+.ec-t{font-size:14.5px;font-weight:650;color:var(--tx);display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.ec-m{font-size:12px;color:var(--tx-3);margin-top:3px;}
+.ec-amt{text-align:right;flex-shrink:0;}
+.ec-amt .v{font-size:21px;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums;line-height:1.1;}
+.ec-amt .s{font-size:11px;color:var(--tx-3);margin-top:2px;}
+.ec-arrow{color:var(--tx-3);font-size:12px;transition:.22s;flex-shrink:0;}
+.ecard.sel .ec-arrow{transform:rotate(90deg);color:var(--gold);}
+.ec-body{display:none;padding:0 18px 18px;border-top:1px solid var(--line-soft);}
+.ecard.sel .ec-body{display:block;}
+
+.kv{display:grid;grid-template-columns:88px 1fr;gap:8px 14px;font-size:13px;margin:14px 0;}
+.kv dt{color:var(--tx-3);font-size:12.5px;padding-top:1px;}
+.kv dd{color:var(--tx-2);line-height:1.7;}
+.kv dd b{color:var(--tx);}
+.law{
+  background:var(--bg-soft);border-left:2px solid var(--cyan);padding:10px 14px;border-radius:0 8px 8px 0;
+  font-size:12.5px;color:var(--tx-2);margin:8px 0;line-height:1.75;
+}
+.law b{color:var(--cyan);}
+.ev-box{background:rgba(79,209,197,.05);border:1px dashed rgba(79,209,197,.28);border-radius:9px;padding:12px 15px;margin:12px 0;font-size:12.5px;color:var(--tx-2);}
+.ev-box .ev-r{display:flex;justify-content:space-between;gap:12px;padding:3px 0;}
+.ev-box .ev-r b{color:var(--cyan);font-variant-numeric:tabular-nums;}
+.ev-box .ev-tot{border-top:1px solid rgba(79,209,197,.2);margin-top:7px;padding-top:7px;font-weight:700;color:var(--tx);}
+
+.btn{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--gold);color:#241A05;border:none;padding:10px 20px;border-radius:9px;
+  font-size:13.5px;font-weight:700;cursor:pointer;transition:.18s;font-family:inherit;
+}
+.btn:hover{background:#F0C674;transform:translateY(-1px);}
+.btn:disabled{opacity:.5;cursor:default;transform:none;}
+.btn.gh{background:transparent;border:1px solid var(--line);color:var(--tx-2);}
+.btn.gh:hover{background:var(--card-2);color:var(--tx);}
+.btn.sm{padding:7px 14px;font-size:12.5px;}
+
+/* exec flow */
+.flow{margin:6px 0 0;}
+.fnode{
+  display:flex;gap:14px;padding:0 0 4px;opacity:0;transform:translateY(8px);
+  transition:.45s;
+}
+.fnode.in{opacity:1;transform:translateY(0);}
+.f-rail{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:26px;}
+.f-dot{
+  width:26px;height:26px;border-radius:50%;background:var(--card-2);border:1.5px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--tx-3);
+  flex-shrink:0;transition:.3s;font-weight:700;
+}
+.fnode.run .f-dot{border-color:var(--gold);color:var(--gold);background:var(--gold-soft);}
+.fnode.ok .f-dot{border-color:var(--green);color:var(--green);background:rgba(94,201,138,.1);}
+.f-line{width:1.5px;flex:1;min-height:14px;background:var(--line);margin:3px 0;}
+.fnode.ok .f-line{background:rgba(94,201,138,.35);}
+.f-c{flex:1;padding-bottom:16px;min-width:0;}
+.f-t{font-size:13.5px;font-weight:650;color:var(--tx);display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.f-d{font-size:12.5px;color:var(--tx-3);margin-top:4px;line-height:1.65;}
+.fnode.run .f-d{color:var(--tx-2);}
+.fnode.ok .f-d{color:var(--tx-2);}
+
+/* chat */
+.chat{background:var(--bg);border:1px solid var(--line);border-radius:11px;padding:16px;margin-top:12px;max-height:none;}
+.msg{display:flex;gap:10px;margin-bottom:13px;}
+.msg:last-child{margin-bottom:0;}
+.m-av{width:26px;height:26px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.msg.agent .m-av{background:var(--gold-soft);color:var(--gold);border:1px solid rgba(232,180,74,.25);}
+.msg.cs .m-av{background:#1E2536;color:var(--tx-2);border:1px solid var(--line);}
+.msg.sys .m-av{background:var(--cyan-soft);color:var(--cyan);border:1px solid rgba(79,209,197,.25);}
+.m-c{flex:1;min-width:0;}
+.m-n{font-size:11px;color:var(--tx-3);margin-bottom:4px;font-weight:600;}
+.m-b{background:var(--card);border:1px solid var(--line);border-radius:4px 11px 11px 11px;padding:10px 14px;font-size:13px;color:var(--tx-2);line-height:1.72;}
+.msg.agent .m-b{background:rgba(232,180,74,.055);border-color:rgba(232,180,74,.18);}
+.msg.cs .m-b{background:var(--card-2);}
+.msg.sys .m-b{background:rgba(79,209,197,.05);border-color:rgba(79,209,197,.18);border-radius:11px;}
+.m-b .q{color:var(--cyan);font-weight:600;}
+.m-b .amt{color:var(--gold);font-weight:700;font-variant-numeric:tabular-nums;}
+
+/* audit */
+.audit{margin-top:14px;border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+.au-h{padding:9px 15px;background:var(--card-2);font-size:12px;color:var(--tx-2);font-weight:600;display:flex;justify-content:space-between;}
+.au-r{padding:9px 15px;border-top:1px solid var(--line-soft);display:grid;grid-template-columns:96px 88px 1fr;gap:12px;font-size:12px;color:var(--tx-3);align-items:center;}
+.au-r .au-a{color:var(--tx-2);}
+.au-r .au-ok{color:var(--green);}
+.au-r .au-w{color:var(--gold);}
+
+/* result */
+.result{margin-top:16px;background:linear-gradient(135deg,rgba(232,180,74,.10),rgba(232,180,74,.02));border:1px solid rgba(232,180,74,.28);border-radius:12px;padding:22px;text-align:center;}
+.res-lb{font-size:12.5px;color:var(--tx-2);letter-spacing:1px;}
+.res-v{font-size:44px;font-weight:800;color:var(--gold);letter-spacing:-1.5px;margin:6px 0;font-variant-numeric:tabular-nums;}
+.res-m{font-size:12.5px;color:var(--tx-3);}
+
+/* metric grid */
+.mgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px;}
+.mc{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:16px 18px;}
+.mc-t{font-size:13px;font-weight:650;color:var(--tx);margin-bottom:5px;}
+.mc-d{font-size:12.5px;color:var(--tx-3);line-height:1.7;}
+.mc-v{font-size:15px;font-weight:750;color:var(--gold);margin-top:8px;font-variant-numeric:tabular-nums;}
+
+/* timeline */
+.tl{position:relative;padding-left:26px;margin-top:20px;}
+.tl:before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:1.5px;background:var(--line);}
+.tl-i{position:relative;margin-bottom:22px;}
+.tl-i:before{content:"";position:absolute;left:-23px;top:7px;width:11px;height:11px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px rgba(232,180,74,.14);}
+.tl-p{font-size:11.5px;color:var(--gold);font-weight:700;letter-spacing:1px;margin-bottom:4px;}
+.tl-t{font-size:15px;font-weight:700;color:var(--tx);margin-bottom:5px;}
+.tl-d{font-size:13px;color:var(--tx-2);line-height:1.72;}
+
+footer{padding:44px 0 60px;border-top:1px solid var(--line-soft);text-align:center;}
+footer p{font-size:12.5px;color:var(--tx-3);}
+
+.src{font-size:11.5px;color:var(--tx-3);margin-top:10px;line-height:1.7;}
+.src a{color:var(--tx-3);text-decoration:underline;text-decoration-color:var(--line);}
+
+@media(max-width:900px){
+  .kpi,.grid3{grid-template-columns:1fr;}
+  .grid2,.mgrid{grid-template-columns:1fr;}
+  h1{font-size:34px;}
+  .bar-row{grid-template-columns:118px 1fr 92px;gap:10px;}
+  .nav-links{display:none;}
+}
+/* ============ product-site upgrade ============ */
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;pointer-events:none;z-index:0;}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1);}
+.reveal.in{opacity:1;transform:none;}
+.reveal-d1{transition-delay:.08s;}.reveal-d2{transition-delay:.16s;}.reveal-d3{transition-delay:.24s;}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important;transition:none!important;}}
+.hover-lift{transition:transform .25s,border-color .25s,box-shadow .25s;}
+.hover-lift:hover{transform:translateY(-4px);border-color:rgba(232,180,74,.35);box-shadow:0 16px 36px rgba(0,0,0,.35);}
+.hero-ctas{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;align-items:center;}
+.btn-lg{padding:14px 30px;font-size:15px;border-radius:11px;}
+.btn-line{background:transparent;border:1px solid var(--line);color:var(--tx-2);}
+.btn-line:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-soft);transform:translateY(-1px);}
+.hero-proof{display:flex;gap:22px;margin-top:26px;flex-wrap:wrap;font-size:12.5px;color:var(--tx-3);}
+.hero-proof b{color:var(--tx-2);font-weight:600;}
+.quote-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px 22px 20px;position:relative;transition:.25s;}
+.quote-card:hover{transform:translateY(-4px);border-color:rgba(232,180,74,.35);box-shadow:0 16px 36px rgba(0,0,0,.35);}
+.quote-mark{font-size:34px;line-height:1;color:var(--gold);opacity:.5;font-family:Georgia,serif;}
+.quote-text{font-size:15px;color:var(--tx);line-height:1.7;margin:8px 0 12px;font-weight:500;}
+.quote-meta{font-size:12.5px;color:var(--tx-3);line-height:1.7;border-top:1px solid var(--line-soft);padding-top:12px;}
+.wf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:10px;}
+.wf-step{position:relative;padding:6px 26px 6px 4px;}
+.wf-step .wf-ic{width:46px;height:46px;border-radius:12px;background:var(--gold-soft);border:1px solid rgba(232,180,74,.3);display:flex;align-items:center;justify-content:center;color:var(--gold);margin-bottom:14px;}
+.wf-num{font-size:12px;font-weight:800;color:var(--tx-3);letter-spacing:2px;margin-bottom:6px;}
+.wf-t{font-size:16px;font-weight:700;color:var(--tx);margin-bottom:8px;}
+.wf-d{font-size:13px;color:var(--tx-2);line-height:1.75;}
+.wf-arrow{position:absolute;right:6px;top:34px;color:var(--line);font-size:18px;}
+@media(max-width:900px){.wf-arrow{display:none;}.wf-step{padding:0 0 18px;}}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.feat-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px 22px;transition:.25s;position:relative;overflow:hidden;}
+.feat-card:hover{transform:translateY(-4px);border-color:rgba(79,209,197,.35);box-shadow:0 16px 36px rgba(0,0,0,.35);}
+.feat-ic{width:44px;height:44px;border-radius:11px;background:var(--card-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--cyan);margin-bottom:16px;}
+.feat-t{font-size:15.5px;font-weight:700;color:var(--tx);margin-bottom:8px;}
+.feat-d{font-size:13.5px;color:var(--tx-2);line-height:1.75;}
+.duel{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:34px 30px;margin:24px 0;}
+.duel-side{text-align:center;}
+.duel-n{font-size:52px;font-weight:800;letter-spacing:-2px;line-height:1;font-variant-numeric:tabular-nums;}
+.duel-n small{font-size:22px;font-weight:700;margin-left:2px;}
+.duel-side.lose .duel-n{color:var(--gold);}
+.duel-side.win .duel-n{color:var(--cyan);}
+.duel-l{font-size:13.5px;color:var(--tx-2);margin-top:12px;}
+.duel-sub{font-size:11.5px;color:var(--tx-3);margin-top:5px;}
+.duel-mid{text-align:center;padding:0 10px;}
+.duel-pct{font-size:30px;font-weight:800;color:var(--red);letter-spacing:-1px;}
+.duel-vs{font-size:12px;color:var(--tx-3);letter-spacing:2px;margin-bottom:6px;}
+@media(max-width:900px){.duel{grid-template-columns:1fr;gap:24px;}.duel-n{font-size:42px;}}
+.vs-table th.hi,.vs-table td.hi{background:linear-gradient(180deg,rgba(232,180,74,.10),rgba(232,180,74,.03));}
+.vs-table th.hi{color:var(--gold);border-bottom:1px solid rgba(232,180,74,.3);}
+.vs-table td.hi{color:var(--tx);font-weight:600;}
+.yes{color:var(--green);font-weight:700;}
+.no{color:var(--tx-3);}
+.mid{color:var(--gold);font-weight:600;}
+.price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:stretch;}
+.price-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 22px;display:flex;flex-direction:column;transition:.25s;}
+.price-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,.4);}
+.price-card.hot{border-color:rgba(232,180,74,.5);background:linear-gradient(180deg,rgba(232,180,74,.08),var(--card) 60%);}
+.price-name{font-size:13px;font-weight:700;color:var(--tx-2);letter-spacing:.5px;display:flex;align-items:center;gap:8px;}
+.price-amt{font-size:32px;font-weight:800;color:var(--gold);margin:12px 0 2px;letter-spacing:-1px;}
+.price-amt small{font-size:13px;color:var(--tx-3);font-weight:500;letter-spacing:0;}
+.price-for{font-size:12px;color:var(--tx-3);margin-bottom:18px;}
+.price-list{list-style:none;margin:0 0 20px;flex:1;}
+.price-list li{font-size:13px;color:var(--tx-2);padding:7px 0 7px 22px;position:relative;border-bottom:1px dashed var(--line-soft);line-height:1.6;}
+.price-list li:last-child{border-bottom:none;}
+.price-list li:before{content:"\2713";position:absolute;left:0;color:var(--cyan);font-weight:700;}
+@media(max-width:900px){.price-grid{grid-template-columns:1fr;}.feat-grid{grid-template-columns:1fr;}}
+.faq{max-width:860px;margin:0 auto;}
+.faq-item{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden;transition:.2s;}
+.faq-item.open{border-color:rgba(232,180,74,.35);}
+.faq-q{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 22px;cursor:pointer;font-size:15px;font-weight:650;color:var(--tx);user-select:none;}
+.faq-plus{flex-shrink:0;width:20px;height:20px;position:relative;color:var(--gold);transition:.25s;}
+.faq-plus:before,.faq-plus:after{content:"";position:absolute;background:currentColor;left:50%;top:50%;}
+.faq-plus:before{width:14px;height:1.8px;transform:translate(-50%,-50%);}
+.faq-plus:after{width:1.8px;height:14px;transform:translate(-50%,-50%);}
+.faq-item.open .faq-plus{transform:rotate(45deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+.faq-a-in{padding:0 22px 18px;font-size:13.5px;color:var(--tx-2);line-height:1.8;}
+.site-footer{border-top:1px solid var(--line-soft);padding:54px 0 30px;background:var(--bg-soft);margin-top:20px;}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:30px;}
+.foot-brand{font-weight:700;font-size:16px;display:flex;align-items:center;gap:9px;margin-bottom:12px;color:var(--tx);}
+.foot-pos{font-size:13px;color:var(--tx-2);line-height:1.8;max-width:320px;}
+.foot-h{font-size:12px;font-weight:700;color:var(--tx-3);letter-spacing:1.5px;margin-bottom:14px;}
+.foot-links{list-style:none;}
+.foot-links li{margin-bottom:9px;}
+.foot-links a{color:var(--tx-2);text-decoration:none;font-size:13.5px;transition:.15s;}
+.foot-links a:hover{color:var(--gold);}
+.foot-bottom{border-top:1px solid var(--line-soft);margin-top:36px;padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--tx-3);}
+@media(max-width:900px){.foot-grid{grid-template-columns:1fr 1fr;}}
+.nav-links a.act{color:var(--gold);background:var(--gold-soft);}</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <div class="brand"><span class="dot"></span>归仓 Reclaim</div>
+    <div class="nav-links">
+      <a href="#pain">痛点</a>
+      <a href="#how">工作流程</a>
+      <a href="#features">核心功能</a>
+      <a href="#evidence">需求铁证</a>
+      <a href="#compare">为什么是归仓</a>
+      <a href="#demo">交互演示</a>
+      <a href="#pricing">收费</a>
+      <a href="#faq">FAQ</a>
+      <a href="interactive-demo/index.html">MVP 工作台 ↗</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+    <div class="orb" style="width:520px;height:520px;background:rgba(232,180,74,.12);top:-160px;right:-120px;"></div>
+    <div class="orb" style="width:420px;height:420px;background:rgba(79,209,197,.08);bottom:-180px;left:-140px;"></div>
+  <div class="wrap">
+    <div class="tagline">主动式个人权益 Agent · 持续巡航 · 到账结算</div>
+    <h1>归仓 Reclaim
+      <span class="en">PROACTIVE ENTITLEMENT AGENT</span>
+    </h1>
+    <p class="sub">
+      你不是没有权益，而是<b>不知道自己有</b>、知道了也<b>忘了去领</b>、领了又<b>跑断腿</b>。<br>
+      归仓替你持续巡航：发现沉睡权益、生成可复核权益卡、一键授权跑完全程——<b>钱到账，才算数</b>。
+    </p>
+    <div class="hero-ctas">
+      <a class="btn btn-lg" href="#demo">开始查我的权益</a>
+      <a class="btn btn-line btn-lg" href="interactive-demo/index.html">打开 MVP 工作台 ↗</a>
+    </div>
+    <div class="hero-proof">
+      <span>✓ 成功才收费</span><span>✓ 全程可审计</span><span>✓ 分级授权 · 随时撤销</span><span>✓ 站在你这一侧</span>
+    </div>
+
+    <div class="kpi">
+      <div class="kpi-c">
+        <div class="kpi-n">76<small>%</small></div>
+        <div class="kpi-l">被官方明确提醒后，仍未领取的权益比例</div>
+        <div class="kpi-s">金融监管总局睡眠保单清理：有效提醒 732.07 万件，实际领取 180.49 万件</div>
+      </div>
+      <div class="kpi-c">
+        <div class="kpi-n">¥347<small>亿</small></div>
+        <div class="kpi-l">已被提醒、却仍沉睡在账上的权益金额</div>
+        <div class="kpi-s">457.06 亿元被提醒 − 109.54 亿元被领取，同一专项口径</div>
+      </div>
+      <div class="kpi-c">
+        <div class="kpi-n">≈¥214<small>*</small></div>
+        <div class="kpi-l">总挽回损失 / 投诉量的粗略比值</div>
+        <div class="kpi-s">43.5 亿元 ÷ 2036.6 万件。*不是真实件均客单价，仅说明大量事件难以支撑高人工成本服务</div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:32px;">
+      <div class="callout-t">一句话价值主张</div>
+      <p>中国存在一个规模巨大、<strong>需求 100% 真实、但行为几乎不发生</strong>的市场：拿回本来就属于自己的钱。这个市场目前只有两种供给——客单价不匹配的律师，和伪造证据的<strong>代退黑产</strong>。中间是真空。</p>
+      <p>归仓填补的不是「更快的旧供给」，而是<strong>一个此前不存在的供给角色</strong>：站在个人一侧、持续运行、按结果结算的权益代理人。</p>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 痛点 ============ -->
+<section id="pain">
+  <div class="wrap">
+    <div class="sec-h reveal">
+      <div class="sec-no">痛点 · PROBLEM</div>
+      <div class="sec-t">你的钱，不是没权益，是在沉睡</div>
+      <div class="sec-d">
+        人不是没有权益，而是不知道自己有、知道了也忘了去领、领了又跑断腿。<br>
+        归仓要解决的，从来不是「再多提醒你一次」。
+      </div>
+    </div>
+    <div class="grid3">
+      <div class="quote-card reveal">
+        <div class="quote-mark">"</div>
+        <div class="quote-text">「您有一笔 4.8 万元满期金待领取，请尽快办理。」</div>
+        <div class="quote-meta">保单满期已经 163 天，钱一直在账上躺着。但在电诈高发的今天，这样一条短信，你的第一反应是——这是诈骗。</div>
+      </div>
+      <div class="quote-card reveal reveal-d1">
+        <div class="quote-mark">"</div>
+        <div class="quote-text">视频会员连续扣了 5 期，每期 25 块，扣费前没有任何提醒。</div>
+        <div class="quote-meta">等你发现时已默默花掉 125 块。想退要找客服、举证、协商，一单才几十块——算了吧。</div>
+      </div>
+      <div class="quote-card reveal reveal-d2">
+        <div class="quote-mark">"</div>
+        <div class="quote-text">航班延误了 4 个多小时，你只知道改签，不知道还能赔 200 块。</div>
+        <div class="quote-meta">条款写在承运人《运输总条件》里，没人主动告诉你。而「找谁、要什么、多久答复」又是另一道墙。</div>
+      </div>
+    </div>
+    <div class="callout r2 reveal" style="margin-top:22px;">
+      <div class="callout-t">中消协 2025 年调查：为什么「默默忍受」</div>
+      <p>放弃维权者中，<strong>23.1%</strong> 归因「对监管没信心」、<strong>22.3%</strong>「举证难」、<strong>22.3%</strong>「程序复杂」、<strong>22.7%</strong>「不熟悉法规」、<strong>24.3%</strong>「渠道少」。问题从来不是「你不知道」，而是「知道了，也拿不回来」。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 工作流程 ============ -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-h reveal">
+      <div class="sec-no">工作流程 · HOW IT WORKS</div>
+      <div class="sec-t">四步闭环，把沉睡的权益变成到账的钱</div>
+      <div class="sec-d">你不需要记住任何条款、跑任何一个部门。授权一次，剩下的交给归仓。</div>
+    </div>
+    <div class="wf-grid">
+      <div class="wf-step reveal">
+        <div class="wf-num">STEP 01</div>
+        <div class="wf-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><path d="M12 12 L18 7"/></svg></div>
+        <div class="wf-t">持续巡航</div>
+        <div class="wf-d">你授权账单、保单、行程、邮箱，归仓在后台 7×24 事件驱动地扫描——不等你提问。</div>
+        <div class="wf-arrow">→</div>
+      </div>
+      <div class="wf-step reveal reveal-d1">
+        <div class="wf-num">STEP 02</div>
+        <div class="wf-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v4H4z"/><path d="M6 9v3a6 6 0 0 0 12 0V9"/><path d="M12 18v3"/></svg></div>
+        <div class="wf-t">判定权益卡</div>
+        <div class="wf-d">自动核验事实、引用条款原文、计算期望值 EV，生成一张依据可复核的权益卡。</div>
+        <div class="wf-arrow">→</div>
+      </div>
+      <div class="wf-step reveal reveal-d2">
+        <div class="wf-num">STEP 03</div>
+        <div class="wf-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div class="wf-t">授权兑现</div>
+        <div class="wf-d">你一键授权，多 Agent 替你跑材料、协商、升级，敏感操作必须你本人确认。</div>
+        <div class="wf-arrow">→</div>
+      </div>
+      <div class="wf-step reveal reveal-d3">
+        <div class="wf-num">STEP 04</div>
+        <div class="wf-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10"/><path d="M9 9.5c0-1 1.3-1.8 3-1.8s3 .8 3 1.8c0 2.5-6 1.8-6 4.3 0 1 1.3 1.8 3 1.8s3-.8 3-1.8"/></svg></div>
+        <div class="wf-t">到账结算</div>
+        <div class="wf-d">钱到账后才按结果收费，每一笔都有凭证可对账，全程留痕可审计。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 核心功能 ============ -->
+<section id="features">
+  <div class="wrap">
+    <div class="sec-h reveal">
+      <div class="sec-no">核心功能 · FEATURES</div>
+      <div class="sec-t">归仓能为你做什么</div>
+      <div class="sec-d">不是「AI 帮你写投诉信」，而是一个持续运行、把事情办到底的系统。</div>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card reveal">
+        <div class="feat-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
+        <div class="feat-t">主动发现</div>
+        <div class="feat-d">7×24 持续巡航你授权的数据源，事件驱动触发，不等你提问——你甚至不知道自己该问什么。</div>
+      </div>
+      <div class="feat-card reveal reveal-d1">
+        <div class="feat-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="6" r="2.2"/><circle cx="12" cy="18" r="2.2"/><path d="M7 7l3.5 8.5M17 7l-3.5 8.5M7 6h10"/></svg></div>
+        <div class="feat-t">权益图谱判定</div>
+        <div class="feat-d">把散落各处的自然语言条款结构化为可计算规则，每张权益卡都落到具体法条与原文依据。</div>
+      </div>
+      <div class="feat-card reveal reveal-d2">
+        <div class="feat-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16l-6 7v5l-4 2v-7z"/></svg></div>
+        <div class="feat-t">EV 智能闸门</div>
+        <div class="feat-d">期望价值 = 金额 × 成功率 − 兑现成本。只推送值得办的权益，低价值自动折叠，不打扰你的注意力。</div>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="10" r="2.2"/><path d="M3 19c0-3 2.7-5 6-5s6 2 6 5"/><path d="M15.5 14.2c2.6.3 5 1.9 5 4.8"/></svg></div>
+        <div class="feat-t">多 Agent 兑现</div>
+        <div class="feat-d">材料、文书、协商、升级、追踪五个 Agent 协作，跑完协商→平台→监管→司法的完整阶梯。</div>
+      </div>
+      <div class="feat-card reveal reveal-d1">
+        <div class="feat-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+        <div class="feat-t">分级授权</div>
+        <div class="feat-d">L0 自动 / L1 一键 / L2 显式 / L3 永久禁止。把「敢不敢授权」拆成可渐进的小决策，随时可撤销。</div>
+      </div>
+      <div class="feat-card reveal reveal-d2">
+        <div class="feat-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l3 3v15H6z"/><path d="M9 12l2 2 4-4"/><path d="M9 19h6"/></svg></div>
+        <div class="feat-t">全程审计</div>
+        <div class="feat-d">每一次发现、沟通、提交都留痕，依据可复核、过程可审计、结果可对账——信任是这个产品的生命线。</div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ============ 1. 价值判据 ============ -->
+<section id="value">
+  <div class="wrap">
+    <div class="sec-h">
+      <div class="sec-no">01</div>
+      <div class="sec-t">先立判据：什么才算「创造新价值」</div>
+      <div class="sec-d">
+        在讨论方向之前，必须先回答一个会被面试官当场追问的问题：<strong>凭什么说这不是提效？</strong>
+        我的判据是四条，任何一条不成立，这个产品就是套壳。
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th style="width:88px;">维度</th><th style="width:44%;">提效型 Agent</th><th>创造新价值型 Agent</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="b">价值函数</td>
+          <td>价值 =（原成本 − 新成本）× <strong>存量需求量</strong>。存量被锁死，随替代率提升边际递减。</td>
+          <td>价值 = <strong>新增行为量</strong> × 单次价值。此前这个数是 0，不是被压缩的问题。</td>
+        </tr>
+        <tr>
+          <td class="b">反事实检验</td>
+          <td>没有它，事情<strong>照样发生</strong>，只是更慢、更贵、更累。</td>
+          <td>没有它，这件事<strong>根本不发生</strong>——不是做得慢，是不做。</td>
+        </tr>
+        <tr>
+          <td class="b">旧世界</td>
+          <td>存在一个被优化的既有流程／岗位／工具。</td>
+          <td>不存在对应流程，也不存在承担该角色的职业。</td>
+        </tr>
+        <tr>
+          <td class="b">结算方式</td>
+          <td>按使用量、席位、订阅收费；价值难归因到结果。</td>
+          <td>按<strong>结果</strong>结算——每一笔交付都有确定金额。</td>
+        </tr>
+        <tr>
+          <td class="b">模型依赖</td>
+          <td>换个更强的基座模型，效果立刻被吃掉（套壳风险）。</td>
+          <td>壁垒在<strong>权益图谱、执行闭环、授权与信任</strong>，模型是零件不是产品。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>四条判据如何逐条成立</h3>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-t"><span class="pill g">判据一</span>行为从无到有</div>
+        <div class="card-d">
+          睡眠保单专项中，机构已完成<strong>有效提醒</strong> 732.07 万件，实际领取仅 180.49 万件——<strong>领取率 24.65%</strong>。
+          需求不是「不知道」，而是知道了也不动。行为缺失可被直接量化。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t"><span class="pill g">判据二</span>供给角色不存在</div>
+        <div class="card-d">
+          现实里没有任何职业或机构，在替个人<strong>系统性地管理全部权益</strong>。
+          律师受客单价约束不做、机构只管自己家的、平台与用户利益对立。<strong>没有「个人权益管理人」这个岗位可被提效。</strong>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t"><span class="pill g">判据三</span>非 LLM 不可</div>
+        <div class="card-d">
+          权益依据散落在 N 个平台的<strong>自然语言条款</strong>中且频繁变更——规则引擎写不出来；
+          兑现要跨数周多轮博弈——人力注意力撑不住；用户不知道自己有什么——<strong>响应式产品无法启动</strong>。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t"><span class="pill g">判据四</span>价值可结算</div>
+        <div class="card-d">
+          每笔兑现都有<strong>确定金额、到账凭证、时间</strong>。因此可以「成功才收费」，
+          用户零风险起步，且与结果强对齐——这正是 Proactive Agent 从「执行工具」变成「任务结算单位」的关键。
+        </div>
+      </div>
+    </div>
+
+    <div class="callout c2">
+      <div class="callout-t">为什么「主动性」是这个产品的必需品，而不是锦上添花</div>
+      <p>绝大多数 Agent 是 Reactive 的——等你提问。但在这个场景里，<strong>用户不知道自己有什么权益，因此永远不会发起第一次提问</strong>。产品无法被用户主动触发，只能由 Agent 主动发现。</p>
+      <p>这不是一个产品偏好问题，而是需求本身决定的架构约束。学界把 Agent 的主动性分为三级：Reactive（等指令）／Scheduled（定时触发）／Situation-Aware（跨源感知变化、判断何时打断）。归仓必须做到第三级。</p>
+      <p>而这一级目前<strong>模型普遍做不到</strong>：小米 ProactiveMobile 基准上，GPT-5 成功率仅 <strong>7.39%</strong>，表现最好的微调模型 Qwen2.5-VL-7B 也只有 <strong>19.15%</strong>。这个 7%→19% 的鸿沟，就是产品机会与技术壁垒同时存在的地方。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. 需求铁证 ============ -->
+<section id="evidence">
+  <div class="wrap">
+    <div class="sec-h">
+      <div class="sec-no">02</div>
+      <div class="sec-t">需求侧铁证：瓶颈不在「不知道」，而在「拿到」</div>
+      <div class="sec-d">
+        直觉认为：维权难是因为信息不对称，多做提醒就能解决。<strong>数据否定了这个直觉</strong>——
+        这决定了产品的主战场在哪。
+      </div>
+    </div>
+
+    <h4>睡眠保单专项：一次天然的对照实验</h4>
+    <p>金融监管总局自 2023 年 9 月组织人身保险「睡眠保单」清理专项。保险公司动用了短信、电话、信函、上门走访、社区联动等全部手段去触达客户。<strong>可以看做一次「信息不对称已被最大程度消除」的自然实验。</strong></p>
+
+    <div class="duel reveal">
+      <div class="duel-side lose">
+        <div class="duel-n"><span class="counter" data-count="732.07" data-dec="2">0</span><small>万件</small></div>
+        <div class="duel-l">被保险公司「有效提醒」</div>
+        <div class="duel-sub">短信 · 电话 · 信函 · 上门走访，手段用尽</div>
+      </div>
+      <div class="duel-mid">
+        <div class="duel-vs">实际领取率</div>
+        <div class="duel-pct"><span class="counter" data-count="24.65" data-dec="2">0</span>%</div>
+        <div class="duel-vs">→</div>
+      </div>
+      <div class="duel-side win">
+        <div class="duel-n"><span class="counter" data-count="180.49" data-dec="2">0</span><small>万件</small></div>
+        <div class="duel-l">真正实际领取</div>
+        <div class="duel-sub">约 347.5 亿元，仍在沉睡</div>
+      </div>
+    </div>
+    <div class="bars" id="bars1">
+      <div class="bar-row">
+        <div class="bar-lb">完成有效提醒<br><span style="color:var(--tx-3);font-size:11px;">件数</span></div>
+        <div class="bar-tr"><div class="bar-fl cyan" data-w="100"><span style="color:#0A0D13;font-size:11.5px;font-weight:700;">732.07 万件</span></div></div>
+        <div class="bar-v">100.0%<small>基准</small></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-lb">已唤醒（建立联系）<br><span style="color:var(--tx-3);font-size:11px;">件数</span></div>
+        <div class="bar-tr"><div class="bar-fl gold" data-w="56"><span style="color:#0A0D13;font-size:11.5px;font-weight:700;">≈ 410 万件</span></div></div>
+        <div class="bar-v">≈56%<small>触达后确认</small></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-lb">实际领取权益<br><span style="color:var(--tx-3);font-size:11px;">件数</span></div>
+        <div class="bar-tr"><div class="bar-fl red" data-w="24.65"><span style="color:#0A0D13;font-size:11.5px;font-weight:700;">180.49 万件</span></div></div>
+        <div class="bar-v">24.65%<small>领取率</small></div>
+      </div>
+    </div>
+
+    <div class="grid3" style="margin-top:22px;">
+      <div class="card">
+        <div class="card-t">金额维度更刺眼</div>
+        <div class="card-d">
+          被提醒权益总金额 <span class="num" style="color:var(--gold);font-weight:700;">457.06 亿元</span>，
+          实际领取 <span class="num" style="color:var(--tx);font-weight:700;">109.54 亿元</span>，
+          <strong>兑现率 23.97%</strong>。约 <span style="color:var(--gold);font-weight:700;">347.5 亿元</span> 已被提醒却仍沉睡。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t">地市级样本的二次验证</div>
+        <div class="card-d">
+          江苏淮安：排查出待唤醒保单 6.4 万件（10 亿元）→ 唤醒 4.1 万件（8.7 亿元）→
+          <strong>实际兑付仅 1.1 万件（6.1 亿元）</strong>。从「联系上」到「钱到账」又掉了一次。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t">小额维权的普遍困境</div>
+        <div class="card-d">
+          2025 年全国 12315 等渠道受理投诉举报咨询 4386.6 万件，挽回损失 43.5 亿元，
+          2025 年投诉量 2036.6 万件，总挽回损失 43.5 亿元；二者的<strong>粗略比值约 214 元/件</strong>（不是真实客单价）。合同类投诉同比增 40.3%，退款难、霸王条款居前。
+        </div>
+      </div>
+    </div>
+
+    <div class="callout r2">
+      <div class="callout-t">这组数据推翻了什么</div>
+      <p><strong>推翻了「提醒即解决」。</strong>机构已经用尽触达手段，仍有约 3/4 的人拿不回自己的钱。这直接否定了「做个权益提醒机器人／加个消息推送」的常规方案——那是把已经失败过一次的事再做一遍。</p>
+      <p><strong>真正的断点在「从知道到拿到」之间的行动链</strong>，它有三处断裂：</p>
+    </div>
+
+    <div class="grid3">
+      <div class="card">
+        <div class="card-t"><span class="pill r">断点 1</span>不信</div>
+        <div class="card-d">
+          在电诈高频环境下，一条「您有 4.8 万元满期金待领取」的短信，正常人第一反应是<strong>诈骗</strong>。
+          中消协调查中，放弃维权者 23.1% 归因「对监管没信心」。机构越主动，用户越怀疑。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t"><span class="pill r">断点 2</span>不会</div>
+        <div class="card-d">
+          举证难（22.3%）、程序复杂（22.3%）、不熟悉法规（22.7%）、渠道少（24.3%）。
+          中消协 2025 年调查中「默默忍受」群体的前四位原因，全部指向<strong>行动能力缺失</strong>。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t"><span class="pill r">断点 3</span>不动</div>
+        <div class="card-d">
+          公开总量显示大量投诉单体价值可能较低，而维权要跨协商→平台→监管→诉讼多级阶梯、耗时数周。
+          <strong>收益低于心理成本，于是拖延到放弃。</strong>商家恰恰拿捏「不值得较真」而推诿。
+        </div>
+      </div>
+    </div>
+
+    <p class="src">数据来源：国家金融监督管理总局人身保险「睡眠保单」清理专项披露（人民日报 2024-05-19）；中国金融新闻网 2026-05-29；淮安市保险行业协会专项通报 2026-08-16；市场监管总局 2025 年 12315 数据（人民日报 2026-03-16）；中消协《"共筑满意消费"2025 年消费维权年主题调查报告》。</p>
+  </div>
+</section>
+
+<!-- ============ 3. 供给真空 ============ -->
+<section id="gap">
+  <div class="wrap">
+    <div class="sec-h">
+      <div class="sec-no">03</div>
+      <div class="sec-t">供给真空：四种现存方案，没有一种成立</div>
+      <div class="sec-d">
+        需求侧的证据只说明「有人需要」。要证明这是<strong>新市场</strong>而非存量竞争，必须说明现有供给为什么都接不住。
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th style="width:130px;">现有供给</th><th style="width:34%;">它实际在做什么</th><th>为什么接不住这个需求</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="b">律师 / 法务</td>
+          <td>承接有明确标的额的诉讼与非诉业务。</td>
+          <td>很多争议单体金额低、处理链路长，<strong>难以覆盖正式法律服务的人工成本</strong>。不是没有需求，是传统价格带难成立。</td>
+        </tr>
+        <tr>
+          <td class="b">消费者自己</td>
+          <td>协商 → 平台申诉 → 12315 → 诉讼。</td>
+          <td>举证几乎全部压在个人身上；要拍摄开箱视频、保留检测报告、读懂条款。<strong>流程长、规则多、单次收益低</strong>，理性选择就是放弃。</td>
+        </tr>
+        <tr>
+          <td class="b">机构（保险/银行/平台）</td>
+          <td>合规驱动的单向提醒：短信、电话、信函、上门走访。</td>
+          <td>只覆盖<strong>自己家</strong>的权益，出于监管压力而非用户利益；且触达方式是用户最不信任的形态——<strong>数据已证明领取率仅 24.65%</strong>。</td>
+        </tr>
+        <tr>
+          <td class="b">「职业代退」黑产</td>
+          <td>话术模板 + <strong>伪造证据</strong>（如要求客户去医院开虚假病历）+ 恶意投诉施压，抽成约 30%。</td>
+          <td>《工人日报》《泉州晚报》等报道其已形成团伙化分工，衍生<strong>个人信息泄露、二次诈骗、敲诈勒索</strong>。这是真实需求在<strong>非法侧</strong>的表达。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <div class="callout-t">关键推论</div>
+      <p>一个规模巨大、需求真实的市场，<strong>合法的低价供给不存在，非法的供给在蓬勃发展</strong>。
+      这说明瓶颈从来不是需求，而是<strong>「合法 + 低价 + 可规模化」这三者在旧技术条件下无法同时满足</strong>。</p>
+      <p>Agent 的出现第一次让三者可以同时成立：<strong>边际执行成本趋近于零</strong>（可规模化、低价），<strong>过程全程留痕且不依赖虚假陈述</strong>（合法）。这就是新价值。</p>
+    </div>
+
+    <h3>竞品证伪：为什么不能做「DoNotPay 中国版」</h3>
+    <p>DoNotPay 是这个方向最知名的先驱，也是最好的反面教材。它的失败方式精确地指出了产品该往哪走。</p>
+
+    <div class="grid3">
+      <div class="card">
+        <div class="card-t"><span class="pill r">失败 1</span>卖模板，不卖结果</div>
+        <div class="card-d">
+          美国 FTC 在最终裁定中认定：该公司<strong>从未测试过其输出是否达到真实律师水平，且未雇佣任何律师</strong>。
+          核心能力停留在「填好你的名字的格式化信函」——而这恰恰是用户自己也能做的事。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t"><span class="pill r">失败 2</span>宣称替代专业角色</div>
+        <div class="card-d">
+          FTC 2024 年 9 月起诉、2025 年 1 月最终裁定，要求支付 <strong>19.3 万美元</strong> 救济金、
+          通知 2021–2023 年订阅者，并禁止在无证据情况下宣称「等同于真人律师」。2026 年其官网已改为「AI Consumer Champion」并声明非律所。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t"><span class="pill r">失败 3</span>信任被自身产品反噬</div>
+        <div class="card-d">
+          Trustpilot <strong>1.8 / 5</strong>（379 条评价，73% 为一星），价格不透明，
+          且「帮用户取消订阅」的产品自身被大量投诉<strong>难以取消订阅</strong>——信任是这类产品的生命线。
+        </div>
+      </div>
+    </div>
+
+    <div class="callout c2">
+      <div class="callout-t">由此确立的三条设计铁律</div>
+      <p><strong>1. 交付结果，不交付文书。</strong>用户买的不是一封信，是「钱到账」。产品架构必须是执行闭环 + 结果结算，而不是内容生成。</p>
+      <p><strong>2. 明示依据，绝不越界。</strong>每一条主张必须落到具体条款原文与来源；涉及虚假陈述、伪造证据、代替用户做法律行为的动作，一律在设计层拦截——这既是合规底线，也是与黑产的分界线。</p>
+      <p><strong>3. 产品自身必须无可指摘。</strong> pricing 透明、授权可撤销、数据可导出、全过程可审计。任何「 irony 」都会直接摧毁信任基础。</p>
+    </div>
+    <p class="src">数据来源：美国 FTC 2025-01-16 最终裁定（Operation AI Comply）；DoNotPay 官网声明（2026-08）；Trustpilot（2026-06-06 查询）；《工人日报》2025-08-12《别让"职业代退"沦为职业诈骗》；《泉州晚报》2025-09-01《"退费代理人"是维权还是骗钱》。</p>
+  </div>
+</section>
+
+<!-- ============ 4. 产品方案 ============ -->
+<section id="product">
+  <div class="wrap">
+    <div class="sec-h">
+      <div class="sec-no">04</div>
+      <div class="sec-t">产品方案：五层架构与一张权益图谱</div>
+      <div class="sec-d">
+        产品不是「AI 帮你写投诉信」。它是一个持续运行的系统：<strong>发现 → 判定 → 兑现 → 留痕</strong>，
+        外加一条贯穿始终的合规闸门。
+      </div>
+    </div>
+
+    <h3>4.1 数据底座：把「权益」变成可计算对象</h3>
+    <p>一切能力的前提，是把散落在各处的自然语言条款，结构化为统一 schema。这是产品的核心资产，也是模型无法替代的壁垒。</p>
+
+    <table>
+      <thead><tr><th style="width:112px;">字段</th><th style="width:32%;">含义</th><th>实例（航班延误补偿）</th></tr></thead>
+      <tbody>
+        <tr><td class="b">domain</td><td>权益所属域</td><td>出行 · 航空运输</td></tr>
+        <tr><td class="b">trigger</td><td>可机读的触发条件</td><td>实际到达延误 ≥ 4h 且 &lt; 8h，且原因归类为承运人原因</td></tr>
+        <tr><td class="b">basis</td><td>依据条款（法条 + 承运/服务条款原文）</td><td>《航班正常管理规定》第 29 条；承运人《运输总条件》补偿标准</td></tr>
+        <tr><td class="b">evidence</td><td>举证要求清单</td><td>登机牌、航班实际起降时间记录、延误原因证明</td></tr>
+        <tr><td class="b">path</td><td>兑现阶梯（含每级时限）</td><td>承运人协商 → 民航服务质量监督平台 → 诉讼</td></tr>
+        <tr><td class="b">window</td><td>时效窗口</td><td>自航班日起 2 年（民法典普通诉讼时效 3 年，按承运条款收紧）</td></tr>
+        <tr><td class="b">amount</td><td>候选涉及金额</td><td>¥200（依国航 2026 年 4 月版条款示例）</td></tr>
+        <tr><td class="b">p_success</td><td>历史成功率（分场景校准）</td><td>0.82</td></tr>
+        <tr><td class="b">cost</td><td>兑现综合成本（Agent 算力 + 人力兜底）</td><td>¥6.4</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <div class="callout-t">由此得到的产品决策：期望价值（EV）闸门</div>
+      <p><strong>EV = 期望金额 × 成功率 − 兑现成本。</strong>EV 低于阈值的权益<strong>不主动推送</strong>，仅折叠进「低价值」区，用户可自行展开。</p>
+      <p>举例：一笔外卖超时赔付 ¥8，成功率 0.9，成本 ¥12 → <span style="color:var(--red);">EV = −¥4.8</span>，不打扰。</p>
+      <p>这是反直觉但必要的取舍：<strong>主动式产品的生死线是「不骚扰」</strong>。每一次无价值的推送，都在消耗用户对「主动」这件事的容忍度——而这正是行业指标 Proactive 接收率 所衡量的东西。</p>
+    </div>
+
+    <h3>4.2 系统架构</h3>
+    <div class="arch">
+      <svg viewBox="0 0 820 470" xmlns="http://www.w3.org/2000/svg" font-family="PingFang SC,Microsoft YaHei,sans-serif">
+        <defs>
+          <marker id="ar" markerWidth="9" markerHeight="9" refX="8" refY="3.2" orient="auto">
+            <path d="M0,0 L0,6.4 L8,3.2 z" fill="#3D4A63"/>
+          </marker>
+          <marker id="arG" markerWidth="9" markerHeight="9" refX="8" refY="3.2" orient="auto">
+            <path d="M0,0 L0,6.4 L8,3.2 z" fill="#E8B44A"/>
+          </marker>
+        </defs>
+
+        <!-- input -->
+        <text x="18" y="24" fill="#6B7688" font-size="11" font-weight="600">授权接入</text>
+        <rect x="18" y="34" width="152" height="42" rx="8" fill="#171E2D" stroke="#232C3F"/>
+        <text x="94" y="52" fill="#96A0B5" font-size="11.5" text-anchor="middle">账单 / 订单 / 保单</text>
+        <text x="94" y="67" fill="#96A0B5" font-size="11.5" text-anchor="middle">行程 / 短信 / 邮箱</text>
+
+        <!-- discovery -->
+        <rect x="212" y="34" width="152" height="42" rx="8" fill="rgba(79,209,197,.08)" stroke="rgba(79,209,197,.35)"/>
+        <text x="288" y="52" fill="#4FD1C5" font-size="12.5" text-anchor="middle" font-weight="700">① 发现层 Discovery</text>
+        <text x="288" y="68" fill="#96A0B5" font-size="10.5" text-anchor="middle">事件驱动 · 持续巡航</text>
+        <line x1="170" y1="55" x2="208" y2="55" stroke="#3D4A63" stroke-width="1.4" marker-end="url(#ar)"/>
+
+        <!-- graph -->
+        <rect x="406" y="34" width="152" height="42" rx="8" fill="#171E2D" stroke="#232C3F"/>
+        <text x="482" y="52" fill="#E7ECF5" font-size="12" text-anchor="middle" font-weight="600">权益图谱</text>
+        <text x="482" y="68" fill="#96A0B5" font-size="10.5" text-anchor="middle">Entitlement Graph</text>
+        <line x1="364" y1="55" x2="402" y2="55" stroke="#3D4A63" stroke-width="1.4" marker-end="url(#ar)"/>
+        <line x1="482" y1="76" x2="482" y2="104" stroke="#3D4A63" stroke-width="1.4" marker-end="url(#ar)"/>
+
+        <!-- adjudication -->
+        <rect x="212" y="106" width="346" height="52" rx="9" fill="rgba(232,180,74,.07)" stroke="rgba(232,180,74,.3)"/>
+        <text x="385" y="128" fill="#E8B44A" font-size="12.5" text-anchor="middle" font-weight="700">② 判定层 Adjudication</text>
+        <text x="385" y="146" fill="#96A0B5" font-size="10.5" text-anchor="middle">成立吗 · 依据是什么 · 值不值得做 → EV 闸门 → 生成权益卡</text>
+
+        <!-- compliance gate -->
+        <rect x="18" y="106" width="152" height="52" rx="9" fill="rgba(229,86,107,.06)" stroke="rgba(229,86,107,.3)"/>
+        <text x="94" y="128" fill="#E5566B" font-size="12" text-anchor="middle" font-weight="700">合规闸门</text>
+        <text x="94" y="145" fill="#96A0B5" font-size="10" text-anchor="middle">拦截虚假陈述/越权</text>
+        <line x1="170" y1="132" x2="208" y2="132" stroke="#E5566B" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#arG)"/>
+
+        <!-- push -->
+        <rect x="212" y="176" width="346" height="34" rx="8" fill="#171E2D" stroke="#232C3F"/>
+        <text x="385" y="197" fill="#96A0B5" font-size="11" text-anchor="middle">主动推送权益卡 → 用户分级授权（L0 自动 / L1 一键 / L2 显式 / L3 禁止）</text>
+        <line x1="385" y1="158" x2="385" y2="174" stroke="#3D4A63" stroke-width="1.4" marker-end="url(#ar)"/>
+
+        <!-- enforcement -->
+        <text x="212" y="238" fill="#6B7688" font-size="11" font-weight="600">③ 兑现层 Enforcement · 多 Agent 协作</text>
+        <g>
+          <rect x="18" y="248" width="122" height="60" rx="9" fill="rgba(232,180,74,.06)" stroke="#232C3F"/>
+          <text x="79" y="272" fill="#E7ECF5" font-size="11.5" text-anchor="middle" font-weight="600">材料 Agent</text>
+          <text x="79" y="289" fill="#96A0B5" font-size="10" text-anchor="middle">自动收集举证</text>
+        </g>
+        <g>
+          <rect x="152" y="248" width="122" height="60" rx="9" fill="rgba(232,180,74,.06)" stroke="#232C3F"/>
+          <text x="213" y="272" fill="#E7ECF5" font-size="11.5" text-anchor="middle" font-weight="600">文书 Agent</text>
+          <text x="213" y="289" fill="#96A0B5" font-size="10" text-anchor="middle">按对方格式生成</text>
+        </g>
+        <g>
+          <rect x="286" y="248" width="122" height="60" rx="9" fill="rgba(232,180,74,.06)" stroke="#232C3F"/>
+          <text x="347" y="272" fill="#E7ECF5" font-size="11.5" text-anchor="middle" font-weight="600">协商 Agent</text>
+          <text x="347" y="289" fill="#96A0B5" font-size="10" text-anchor="middle">多轮对话与博弈</text>
+        </g>
+        <g>
+          <rect x="420" y="248" width="122" height="60" rx="9" fill="rgba(232,180,74,.06)" stroke="#232C3F"/>
+          <text x="481" y="272" fill="#E7ECF5" font-size="11.5" text-anchor="middle" font-weight="600">升级 Agent</text>
+          <text x="481" y="289" fill="#96A0B5" font-size="10" text-anchor="middle">判断阶梯跃迁</text>
+        </g>
+        <g>
+          <rect x="554" y="248" width="122" height="60" rx="9" fill="rgba(232,180,74,.06)" stroke="#232C3F"/>
+          <text x="615" y="272" fill="#E7ECF5" font-size="11.5" text-anchor="middle" font-weight="600">追踪 Agent</text>
+          <text x="615" y="289" fill="#96A0B5" font-size="10" text-anchor="middle">超时重试 · 进度</text>
+        </g>
+        <line x1="385" y1="210" x2="385" y2="246" stroke="#E8B44A" stroke-width="1.4" marker-end="url(#arG)"/>
+
+        <!-- escalate ladder -->
+        <text x="18" y="334" fill="#6B7688" font-size="11" font-weight="600">兑现阶梯（逐级升级，每级有法定时限）</text>
+        <rect x="18" y="344" width="152" height="38" rx="8" fill="#171E2D" stroke="#232C3F"/>
+        <text x="94" y="367" fill="#96A0B5" font-size="11" text-anchor="middle">① 与经营者协商</text>
+        <line x1="170" y1="363" x2="192" y2="363" stroke="#3D4A63" stroke-width="1.3" marker-end="url(#ar)"/>
+        <rect x="196" y="344" width="152" height="38" rx="8" fill="#171E2D" stroke="#232C3F"/>
+        <text x="272" y="367" fill="#96A0B5" font-size="11" text-anchor="middle">② 平台/行业申诉</text>
+        <line x1="348" y1="363" x2="370" y2="363" stroke="#3D4A63" stroke-width="1.3" marker-end="url(#ar)"/>
+        <rect x="374" y="344" width="152" height="38" rx="8" fill="#171E2D" stroke="#232C3F"/>
+        <text x="450" y="367" fill="#96A0B5" font-size="11" text-anchor="middle">③ 监管投诉 12315</text>
+        <line x1="526" y1="363" x2="548" y2="363" stroke="#3D4A63" stroke-width="1.3" marker-end="url(#ar)"/>
+        <rect x="552" y="344" width="124" height="38" rx="8" fill="#171E2D" stroke="#232C3F"/>
+        <text x="614" y="367" fill="#96A0B5" font-size="11" text-anchor="middle">④ 司法诉讼</text>
+
+        <!-- result + audit -->
+        <rect x="18" y="404" width="344" height="52" rx="9" fill="rgba(232,180,74,.09)" stroke="rgba(232,180,74,.32)"/>
+        <text x="190" y="426" fill="#E8B44A" font-size="12.5" text-anchor="middle" font-weight="700">④ 结果结算 Settlement</text>
+        <text x="190" y="444" fill="#96A0B5" font-size="10.5" text-anchor="middle">到账金额 · 到账凭证 · 按结果计费 → 反哺成功率校准</text>
+        <line x1="676" y1="363" x2="700" y2="363" stroke="#3D4A63" stroke-width="1.3"/>
+        <line x1="700" y1="363" x2="700" y2="430" stroke="#3D4A63" stroke-width="1.3"/>
+        <line x1="700" y1="430" x2="366" y2="430" stroke="#3D4A63" stroke-width="1.3" marker-end="url(#arG)"/>
+
+        <rect x="382" y="404" width="294" height="52" rx="9" fill="rgba(79,209,197,.06)" stroke="rgba(79,209,197,.28)"/>
+        <text x="529" y="426" fill="#4FD1C5" font-size="12.5" text-anchor="middle" font-weight="700">⑤ 信任层 Trust · 全链路审计</text>
+        <text x="529" y="444" fill="#96A0B5" font-size="10.5" text-anchor="middle">依据可复核 · 过程可审计 · 结果可对账</text>
+        <line x1="366" y1="430" x2="378" y2="430" stroke="#3D4A63" stroke-width="1.3"/>
+      </svg>
+    </div>
+
+    <h3>4.3 三个决定成败的产品设计</h3>
+    <div class="grid3">
+      <div class="card">
+        <div class="card-t"><span class="pill c">设计一</span>权益卡必须自带「判决书」</div>
+        <div class="card-d">
+          每张权益卡必须包含：<strong>依据条款原文</strong>（可点开核验来源）、<strong>期望金额与成功率</strong>、
+          <strong>EV 计算过程</strong>、<strong>举证清单</strong>、<strong>路径与时限</strong>。
+          目标是让「不信」这个第一断点在<strong>用户点开的第一屏内被解决</strong>——不是靠话术，靠可复核。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t"><span class="pill c">设计二</span>合规闸门是护城河不是成本</div>
+        <div class="card-d">
+          凡涉及<strong>虚假陈述、伪造证据、代替用户做法律行为、未经授权外发个人信息</strong>的动作，在架构层直接拦截并留痕。
+          这既是监管底线，也是与代退黑产的根本区别，更是<strong>B 端机构愿意合作的前提</strong>——保险公司不会和一个可能教唆骗保的产品合作。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t"><span class="pill c">设计三</span>分级授权，而非全权委托</div>
+        <div class="card-d">
+          L0 自动（监控、查询、生成草稿）／L1 一键确认（发送申请、补充材料）／
+          L2 显式授权（金额承诺、个人信息外发、法律文书）／L3 永久禁止（伪造、代签、虚假投诉）。
+          <strong>把「敢不敢授权」拆成可渐进的小决策</strong>，降低首次授权门槛。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. 交互原型 ============ -->
+<section id="demo">
+  <div class="wrap">
+    <div class="sec-h">
+      <div class="sec-no">05</div>
+      <div class="sec-t">可交互原型：一次完整的「发现 → 判定 → 兑现」</div>
+      <div class="sec-d">
+        下方是用于解释架构的情景演示。用户<strong>没有提问</strong>——Agent 在后台巡航时主动发现了三项候选，
+        并主动推送。若要体验可输入记录、调整 EV 阈值、导出材料包与审计授权的完整版，<a href="interactive-demo/index.html" style="color:var(--gold);">打开 Agent MVP 工作台 ↗</a>。
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="demo-top">
+        <div class="demo-dots"><i></i><i></i><i></i></div>
+        <div class="demo-title">归仓 Reclaim · 情景演示（非真实代办记录）</div>
+        <div class="demo-steps">
+          <span class="step-pill on" id="sp1">1 发现</span>
+          <span class="step-pill" id="sp2">2 判定</span>
+          <span class="step-pill" id="sp3">3 兑现</span>
+          <span class="step-pill" id="sp4">4 结算</span>
+        </div>
+      </div>
+      <div class="demo-body" id="demoBody">
+
+        <!-- STEP 1 -->
+        <div id="step1">
+          <div class="push-note">
+            <div class="push-av">仓</div>
+            <div class="push-tx">
+              <b>归仓 · 主动提醒</b>　今天 09:14<br>
+              我昨晚完成了一次全量巡检，扫描了你授权的 <b>4 个数据源</b>（邮箱 2.1 万封、支付宝账单 14 个月、航旅记录 23 条、保单短信 6 条）。
+              发现 <b>3 项应得但未得的权益</b>，合计期望价值 <b>¥38,013</b>。另有 <b>2 项</b>因价值过低未推送。
+            </div>
+          </div>
+
+          <div class="ecard" data-id="1">
+            <div class="ec-head">
+              <div class="ec-ic">✈️</div>
+              <div class="ec-main">
+                <div class="ec-t">航班延误补偿 · CA1836<span class="pill g">高置信</span></div>
+                <div class="ec-m">2026-08-12 北京首都 → 上海虹桥 · 实际到达延误 4h12m</div>
+              </div>
+              <div class="ec-amt"><div class="v">¥200</div><div class="s">成功率 82%（演示先验）</div></div>
+              <div class="ec-arrow">▶</div>
+            </div>
+            <div class="ec-body">
+              <dl class="kv">
+                <dt>触发条件</dt><dd>实际到达延误 <b>4h12m</b>，落入「≥4h 且 &lt;8h」档；延误原因经航旅数据与机场流量记录交叉核验，归类为<b>承运人原因</b>。</dd>
+                <dt>举证</dt><dd>登机牌 ✓ 已获取　·　实际起降时间 ✓ 已获取　·　延误原因证明 ✓ 已通过公开航班数据源核验</dd>
+                <dt>路径</dt><dd>① 承运人在线协商 → ② 民航服务质量监督平台 → ③ 诉讼</dd>
+                <dt>时效</dt><dd>剩余 <b>713 天</b>，无紧迫性，可择机执行</dd>
+              </dl>
+              <div class="law">
+                <b>依据一 ·</b>《航班正常管理规定》第二十九条：航班延误后，承运人应根据旅客实际需求提供退票、改签等服务。<br>
+                <b>依据二 ·</b>《公共航空运输旅客服务管理规定》第五十二条：承运人应在收到投诉之日起 <b>10 个工作日内</b>作出包含解决方案的处理结果。<br>
+                <b>依据三 ·</b>国航 2026 年 4 月版《旅客、行李运输总条件》：国航原因造成延误 4–8 小时，已实际乘机旅客补偿 <b>¥200</b>。
+              </div>
+              <div class="ev-box">
+                <div class="ev-r"><span>期望金额 × 成功率</span><b>¥200 × 0.82 = ¥164.0</b></div>
+                <div class="ev-r"><span>兑现成本（Agent 算力 + 人力兜底摊销）</span><b>− ¥6.4</b></div>
+                <div class="ev-r ev-tot"><span>期望价值 EV</span><b>¥321.6　→ 通过阈值，予以推送</b></div>
+              </div>
+              <button class="btn sm" data-run="1">授权兑现（L1·一键确认）→</button>
+            </div>
+          </div>
+
+          <div class="ecard" data-id="2">
+            <div class="ec-head">
+              <div class="ec-ic">📺</div>
+              <div class="ec-main">
+                <div class="ec-t">会员自动续费未显著提醒<span class="pill c">中置信</span></div>
+                <div class="ec-m">某视频平台 · 连续扣费 5 期 × ¥25，续费前未收到任何提醒</div>
+              </div>
+              <div class="ec-amt"><div class="v">¥125</div><div class="s">成功率 68%</div></div>
+              <div class="ec-arrow">▶</div>
+            </div>
+            <div class="ec-body">
+              <dl class="kv">
+                <dt>触发条件</dt><dd>账单识别到周期性扣费 5 期；邮箱与短信在<b>每期扣费前 7 天内均无提醒记录</b>。</dd>
+                <dt>举证</dt><dd>5 期扣款流水 ✓ 已获取　·　无提醒证据 ✓ 邮箱与短信全量检索，0 命中</dd>
+                <dt>路径</dt><dd>① 平台客服协商退费 → ② 12315 平台投诉 → ③ 消协调解</dd>
+                <dt>时效</dt><dd>剩余 <b>541 天</b></dd>
+              </dl>
+              <div class="law">
+                <b>依据 ·</b>《中华人民共和国消费者权益保护法实施条例》第十条（2024 年 7 月 1 日施行）：
+                经营者采取<b>自动展期、自动续费</b>等方式提供服务的，应当在消费者接受服务前<b>和</b>自动展期、自动续费等日期前，
+                以<b>显著方式</b>提请消费者注意。
+              </div>
+              <div class="ev-box">
+                <div class="ev-r"><span>期望金额 × 成功率</span><b>¥125 × 0.68 = ¥85.0</b></div>
+                <div class="ev-r"><span>兑现成本</span><b>− ¥8.2</b></div>
+                <div class="ev-r ev-tot"><span>期望价值 EV</span><b>¥76.8　→ 通过阈值，予以推送</b></div>
+              </div>
+              <button class="btn sm" data-run="2">授权兑现（L1·一键确认）→</button>
+            </div>
+          </div>
+
+          <div class="ecard" data-id="3">
+            <div class="ec-head">
+              <div class="ec-ic">🛡️</div>
+              <div class="ec-main">
+                <div class="ec-t">保单满期金未领取<span class="pill g">高置信</span><span class="pill r">金额显著</span></div>
+                <div class="ec-m">2016 年投保分红险 · 2026-03-18 满期 · 已沉睡 163 天</div>
+              </div>
+              <div class="ec-amt"><div class="v">¥48,000</div><div class="s">成功率 91%</div></div>
+              <div class="ec-arrow">▶</div>
+            </div>
+            <div class="ec-body">
+              <dl class="kv">
+                <dt>触发条件</dt><dd>保单短信识别出保单号与满期日；账单流水显示<b>满期日后 163 天无任何入账</b>。</dd>
+                <dt>举证</dt><dd>保单号 ✓ 已获取　·　投保人身份证明 ⚠ 需 L2 显式授权　·　收款账户 ✓ 已获取</dd>
+                <dt>路径</dt><dd>① 保险公司线上申领 → ② 金融监管总局投诉渠道 → ③ 诉讼</dd>
+                <dt>时效</dt><dd>人身保险金请求权诉讼时效 <b>5 年</b>，剩余充裕，但每延迟一日损失活期利息</dd>
+              </dl>
+              <div class="law">
+                <b>依据一 ·</b>保单条款约定的满期生存金给付责任（保险事故发生或合同到期，保险人应履行给付义务）。<br>
+                <b>依据二 ·</b>国家金融监督管理总局人身保险「睡眠保单」清理专项——保险公司<b>有主动寻访与给付义务</b>，
+                已有效提醒 732.07 万件，实际领取率仅 24.65%。<br>
+                <b>依据三 ·</b>《中华人民共和国保险法》关于保险金请求权诉讼时效的规定。
+              </div>
+              <div class="ev-box">
+                <div class="ev-r"><span>期望金额 × 成功率</span><b>¥48,000 × 0.91 = ¥43,680</b></div>
+                <div class="ev-r"><span>兑现成本（含 L2 人工核验环节）</span><b>− ¥68.0</b></div>
+                <div class="ev-r ev-tot"><span>期望价值 EV</span><b>¥43,612　→ 显著通过，优先处理</b></div>
+              </div>
+              <button class="btn sm" data-run="3">授权兑现（L2·需显式授权）→</button>
+            </div>
+          </div>
+
+          <div class="ecard dim" data-id="4">
+            <div class="ec-head" style="cursor:default;">
+              <div class="ec-ic" style="opacity:.6">🍜</div>
+              <div class="ec-main">
+                <div class="ec-t" style="color:var(--tx-2);">外卖超时赔付<span class="pill n">未推送</span></div>
+                <div class="ec-m">3 笔订单累计 ¥8</div>
+              </div>
+              <div class="ec-amt"><div class="v" style="color:var(--tx-3);font-size:16px;">EV −¥4.8</div><div class="s">低于阈值，不打扰</div></div>
+            </div>
+          </div>
+          <div class="ecard dim" data-id="5">
+            <div class="ec-head" style="cursor:default;">
+              <div class="ec-ic" style="opacity:.6">📦</div>
+              <div class="ec-main">
+                <div class="ec-t" style="color:var(--tx-2);">快递延误赔付<span class="pill n">未推送</span></div>
+                <div class="ec-m">1 笔订单 ¥12</div>
+              </div>
+              <div class="ec-amt"><div class="v" style="color:var(--tx-3);font-size:16px;">EV −¥2.1</div><div class="s">低于阈值，不打扰</div></div>
+            </div>
+          </div>
+
+          <p style="font-size:12px;color:var(--tx-3);margin-top:14px;">
+            ↑ 最后两项演示了 EV 闸门：低价值权益不进入主动推送，避免消耗用户对「主动」的容忍度。
+          </p>
+        </div>
+
+        <!-- STEP 2/3 : exec -->
+        <div id="step2" style="display:none;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap;">
+            <button class="btn gh sm" id="backBtn">← 返回权益列表</button>
+            <div style="font-size:14px;font-weight:650;color:var(--tx);" id="execTitle"></div>
+          </div>
+
+          <div class="flow" id="flow"></div>
+
+          <div id="chatWrap" style="display:none;">
+            <h4 style="margin-top:8px;">协商 Agent 与客服的情景对话（用于展示产品逻辑）</h4>
+            <div class="chat" id="chat"></div>
+          </div>
+
+          <div id="auditWrap" style="display:none;">
+            <h4 style="margin-top:20px;">全过程审计日志</h4>
+            <div class="audit" id="audit"></div>
+          </div>
+
+          <div id="resultWrap" style="display:none;">
+            <div class="result">
+              <div class="res-lb">已到账</div>
+              <div class="res-v" id="resV"></div>
+              <div class="res-m" id="resM"></div>
+            </div>
+            <div style="display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap;">
+              <button class="btn gh sm" id="againBtn">重新演示</button>
+              <button class="btn gh sm" id="otherBtn">换一项权益试试</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--tx-3);margin-top:12px;">
+      原型说明：交互与数据均为可运行的概念演示，用于呈现判定逻辑、执行链路与信任设计；金额与成功率为示例参数，真实产品需由权益图谱的历史校准给出。
+    </p>
+  </div>
+</section>
+
+<!-- ============ 差异化对比 ============ -->
+<section id="compare">
+  <div class="wrap">
+    <div class="sec-h reveal">
+      <div class="sec-no">为什么是归仓 · WHY RECLAIM</div>
+      <div class="sec-t">为什么不是银行 App、短信提醒，或律师</div>
+      <div class="sec-d">一个规模巨大、需求真实的市场，合法 + 低价 + 可规模化的供给此前不存在。归仓补的正是这个真空。</div>
+    </div>
+    <table class="vs-table reveal">
+      <thead>
+        <tr>
+          <th style="width:130px;"></th>
+          <th>银行/机构 App</th>
+          <th>短信/电话提醒</th>
+          <th>律师 / 法务</th>
+          <th>职业代退黑产</th>
+          <th class="hi">归仓 Reclaim</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="b">覆盖范围</td>
+          <td class="no">只看自家</td>
+          <td class="no">只看自家</td>
+          <td class="mid">按案接</td>
+          <td class="no">按单接</td>
+          <td class="hi">跨源全品类</td>
+        </tr>
+        <tr>
+          <td class="b">主动发现</td>
+          <td class="no">被动查询</td>
+          <td class="no">单向触达</td>
+          <td class="no">你自己找</td>
+          <td class="mid">半主动</td>
+          <td class="hi">7×24 事件巡航</td>
+        </tr>
+        <tr>
+          <td class="b">帮你跑流程</td>
+          <td class="no">否</td>
+          <td class="no">否</td>
+          <td class="mid">贵 · 门槛高</td>
+          <td class="no">伪造证据</td>
+          <td class="hi">多 Agent 执行闭环</td>
+        </tr>
+        <tr>
+          <td class="b">合法合规</td>
+          <td class="yes">合规</td>
+          <td class="yes">合规</td>
+          <td class="yes">合规</td>
+          <td class="no">违法 · 个资风险</td>
+          <td class="hi">合规闸门全程拦截</td>
+        </tr>
+        <tr>
+          <td class="b">收费方式</td>
+          <td class="no">—</td>
+          <td class="no">—</td>
+          <td class="no">预付高额</td>
+          <td class="mid">抽成约 30%</td>
+          <td class="hi">成功才收费 10–20%</td>
+        </tr>
+        <tr>
+          <td class="b">立场</td>
+          <td class="no">机构一侧</td>
+          <td class="no">机构一侧</td>
+          <td class="mid">按件计费</td>
+          <td class="no">黑产牟利</td>
+          <td class="hi">站在你这一侧</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout reveal" style="margin-top:22px;">
+      <div class="callout-t">关键设计：归仓只站在你这一侧</div>
+      <p>与 B 端机构合作时，条款写死——<strong>不得以任何方式向用户做出不利推荐</strong>。一旦你感知到 Agent 在帮企业少赔钱，全部信任归零。这正是 DoNotPay 与代退黑产的覆辙。</p>
+    </div>
+  </div>
+</section><!-- ============ 6. 指标 ============ -->
+<section id="metrics">
+  <div class="wrap">
+    <div class="sec-h">
+      <div class="sec-no">06</div>
+      <div class="sec-t">指标体系：北极星与它的四个制约项</div>
+      <div class="sec-d">
+        这类产品最容易死在「发现得越多越骚扰用户」。因此北极星不能只看兑现金额，必须绑定质量与信任指标。
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-t">北极星指标</div>
+      <p><strong>月度已兑现权益总额（Settled Entitlement Value, SEV）</strong>＝ Σ 实际到账金额。</p>
+      <p>选它的理由：它同时代表用户价值、B 端价值与可结算收入，且<strong>无法被刷量指标伪造</strong>——到账就是到账。</p>
+    </div>
+
+    <div class="mgrid">
+      <div class="mc">
+        <div class="mc-t">① 误报率 False Claim Rate　<span class="pill r">一票否决</span></div>
+        <div class="mc-d">推送后被判定为不成立、或用户明确标记「这是骚扰」的比例。这个指标直接决定信任资产，一旦失控，全部其他指标归零。</div>
+        <div class="mc-v">目标 &lt; 5%</div>
+      </div>
+      <div class="mc">
+        <div class="mc-t">② 主动接收率 Proactive Acceptance</div>
+        <div class="mc-d">推送的权益中用户接受并授权兑现的比例。这是 Proactive 类产品最核心的产品指标——衡量「该不该推、推得对不对」，而非技术能力。</div>
+        <div class="mc-v">目标 &gt; 55%</div>
+      </div>
+      <div class="mc">
+        <div class="mc-t">③ 兑现成功率 Claim Success Rate</div>
+        <div class="mc-d">已授权兑现的权益中最终到账的比例，按 domain 分场景统计，反哺权益图谱的 p_success 参数校准。</div>
+        <div class="mc-v">分层：高置信 &gt; 85%</div>
+      </div>
+      <div class="mc">
+        <div class="mc-t">④ 单位兑现成本 Cost per Settlement</div>
+        <div class="mc-d">单笔兑现消耗的 Agent 算力 + 人力兜底摊销。它决定了 EV 闸门的阈值，也决定低价市场能否被合法覆盖。</div>
+        <div class="mc-v">目标 &lt; ¥15 / 笔</div>
+      </div>
+      <div class="mc">
+        <div class="mc-t">⑤ 首次授权转化率</div>
+        <div class="mc-d">注册用户中完成首个数据源授权的比例。这是整个产品的入口瓶颈——没有授权就没有发现，分级授权设计主要服务于它。</div>
+        <div class="mc-v">目标 &gt; 40%</div>
+      </div>
+      <div class="mc">
+        <div class="mc-t">⑥ 平均兑现时效 T+（天）</div>
+        <div class="mc-d">从授权到到账的天数，按兑现阶梯分级统计。长周期场景（如保单）需单独设档，避免污染短周期指标。</div>
+        <div class="mc-v">短周期 &lt; 7 天</div>
+      </div>
+    </div>
+
+    <h3>评测体系：高风险场景必须有的四道闸</h3>
+    <ul class="li">
+      <li><b>真实 Query 评测集</b>：从真实权益场景抽样构建评测集，不只用合成数据——合成数据无法覆盖条款冲突、平台话术变化、举证缺失等真实复杂度。</li>
+      <li><b>依据溯源率</b>：每条权益主张必须能落到可核验的条款原文与来源；无法溯源的一律不推送。这是「不信」断点的技术解法。</li>
+      <li><b>BadCase 归因回流</b>：失败案例按「依据错误／举证不足／话术失效／对方无理拒绝／越权违规」五类归因，分别回流到图谱、材料、协商、升级、合规闸门五个模块。</li>
+      <li><b>模型分场景选型</b>：判定层（强规则理解）与协商层（强对抗与语境）用不同模型与温度参数，不追求一个模型打天下；以依据溯源率和协商成功率为选型标准，而非通用榜单。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 7. 商业化 ============ -->
+<section id="business">
+  <div class="wrap">
+    <div class="sec-h">
+      <div class="sec-no">07</div>
+      <div class="sec-t">商业化：为什么 B 端才是规模化的那一边</div>
+      <div class="sec-d">
+        价值可结算既是产品的优势，也是商业模式的设计起点。但这个市场的付费方不止一个。
+      </div>
+    </div>
+
+    <table>
+      <thead><tr><th style="width:110px;">付费方</th><th style="width:26%;">付费动机</th><th style="width:24%;">计价方式</th><th>为什么成立</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="b">C 端用户</td>
+          <td>零风险拿回本属于自己的钱；省去举证与沟通成本。</td>
+          <td>按结果计费 <b>10–20%</b>；会员制解锁主动监控与无限次。</td>
+          <td>价值金额确定、到账可验证，<strong>成功才收费</strong>使首次尝试门槛趋近于零。参考：Rocket Money 账单谈判按首年节省额抽成 35–60%；代退黑产抽成约 30%。</td>
+        </tr>
+        <tr>
+          <td class="b">保险公司</td>
+          <td>睡眠保单清理是<strong>监管强制的合规动作</strong>，人工排查 + 上门走访成本极高，且领取率长期卡在 24% 左右。</td>
+          <td>按成功兑付件数结算 + 年度服务费。</td>
+          <td>他们<strong>已有预算、已有 KPI、已有监管压力</strong>，只缺一个能把触达-兑付转化率提上去的可信通道。这是最容易被验证的付费方。</td>
+        </tr>
+        <tr>
+          <td class="b">银行 / 运营商 / 平台</td>
+          <td>降低投诉量与监管处罚风险、提升满意度、避免投诉公示带来的声誉损失。</td>
+          <td>按转化解数或年度订阅。</td>
+          <td>12315 已集中公示投诉 <b>2624.5 万条</b>、公示率 98.4%——<strong>投诉被公开本身就是成本</strong>，用一个可信第三方前置化解对企业是净收益。</td>
+        </tr>
+        <tr>
+          <td class="b">监管机构 / 消协</td>
+          <td>提升纠纷源头化解率，降低行政调解负荷。</td>
+          <td>项目制 / 公共服务采购。</td>
+          <td>2025 年已推动 <b>27.9 万家企业</b>接入在线纠纷解决机制、源头处理 <b>1232.5 万件</b>——政策方向明确是「把纠纷化解前移」。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout c2">
+      <div class="callout-t">双边飞轮</div>
+      <p>用户授权越充分 → 发现越准、误报越低 → 兑现率越高 → 机构越愿意开放官方接口与数据 → 兑现更容易更快 → 用户更愿意授权。</p>
+      <p><strong>关键设计：B 端接入必须是「让用户更容易拿到钱」，而不是「帮企业少赔钱」。</strong>一旦用户感知到 Agent 站在企业一侧，全部信任资产归零——这同样是 DoNotPay 与代退黑产的覆辙。产品与 B 端的合作条款中，必须写死<strong>不得以任何方式向用户做出不利推荐</strong>。</p>
+    </div>
+
+    <h3>冷启动路线：先挑「规则清晰、闭环最短」的域</h3>
+    <div class="tl">
+      <div class="tl-i">
+        <div class="tl-p">PHASE 1 · 0–3 个月</div>
+        <div class="tl-t">单域突破：航空出行</div>
+        <div class="tl-d">
+          选择理由：法规与承运人《运输总条件》<strong>公开且已备案</strong>、金额分档固定、延误数据可公开核验、闭环短（10 个工作日内必须答复）。
+          目标不是 GMV，而是<strong>跑通 EV 闸门与 p_success 校准方法论</strong>，并把单位兑现成本压到 ¥15 以下。
+        </div>
+      </div>
+      <div class="tl-i">
+        <div class="tl-p">PHASE 2 · 3–9 个月</div>
+        <div class="tl-t">扩域 + 首单 B 端：叠加电商价保与会员续费，签约第一家保险公司</div>
+        <div class="tl-d">
+          价保与续费频次高、数据全在平台内、验证快，是训练主动性的最佳场景。
+          同步用 Phase 1 的兑现率数据去谈保险公司——<strong>把「我们能把你 24% 的领取率提到多少」变成可签的对赌条款</strong>，这是 B 端破冰的抓手。
+        </div>
+      </div>
+      <div class="tl-i">
+        <div class="tl-p">PHASE 3 · 9–18 个月</div>
+        <div class="tl-t">全品类权益图谱 + 机构侧接入</div>
+        <div class="tl-d">
+          扩展到保险、通信、金融、教育、房屋六大域，开放机构侧接入标准。
+          此时的核心资产已经不是 Agent 本身，而是<strong>那张带着历史成功率、被十几万次真实兑现校准过的权益图谱</strong>——这才是模型能力无法直接覆盖的东西。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. 取舍 ============ -->
+<section id="tradeoff">
+  <div class="wrap">
+    <div class="sec-h">
+      <div class="sec-no">08</div>
+      <div class="sec-t">如果真由我来做：三个最难的取舍</div>
+      <div class="sec-d">
+        产品方案的价值，一半在于它选择了<strong>不做什么</strong>。以下是我认为最容易被做错、也最能检验判断的三处。
+      </div>
+    </div>
+
+    <div class="grid3">
+      <div class="card">
+        <div class="card-t"><span class="pill r">取舍一</span>不追「发现量」，追「接收率」</div>
+        <div class="card-d">
+          <p style="margin-bottom:8px;">最容易犯的错，是把「发现了多少条权益」当核心指标，于是放宽判定阈值、大推特推。结果是短期数据好看，长期用户关闭推送、卸载、并把主动式产品永久拉黑。</p>
+          <p style="margin-bottom:0;"><strong>我选择用 EV 闸门硬约束发现量</strong>，把主动接收率和误报率放在比 SEV 更靠前的考核位置，即使这让早期的数字难看得多。</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t"><span class="pill r">取舍二</span>不碰「代理执业」，只做「武装用户」</div>
+        <div class="card-d">
+          <p style="margin-bottom:8px;">产品定位上有一条危险的捷径：宣称「AI 替你打官司」——DoNotPay 因此被 FTC 处罚、被律协围攻、信任崩塌，19.3 万美元只是显性成本。</p>
+          <p style="margin-bottom:0;"><strong>我选择把产品严格定义为「武装用户」</strong>：所有对外行为以用户名义、经分级授权发出；Agent 提供的是依据、材料、话术与追踪，而不是法律代理。这牺牲了部分想象空间，但换来了合规、B 端合作资格与长期信任。</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-t"><span class="pill r">取舍三</span>不做通用入口，从最窄的域切</div>
+        <div class="card-d">
+          <p style="margin-bottom:8px;">这个类目最大的诱惑是「全品类权益平台」——听起来性感，但每个域的条款、举证、话术、时限都不同，全铺的结果是哪一类都判定不准，误报率失控。</p>
+          <p style="margin-bottom:0;"><strong>我选择先用单一域（航空出行）跑通方法论</strong>，把 p_success 校准、成本结构、协商话术库这几件事做成可复制的模板，再横向复制。慢，但每一步都可验证。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:26px;">
+      <div class="callout-t">一句话总结这个作品想证明的能力</div>
+      <p><strong>不是「我能做一个 Agent」，而是「我能判断哪个 Agent 值得做，并且能用数据证明它为什么值得做」。</strong></p>
+      <p>这个方向所有的关键结论——瓶颈不在提醒而在行动链、供给真空在合法低价侧、主动性是需求决定的架构约束而非偏好、壁垒在权益图谱而非模型——都不是来自灵感，而是来自对官方披露数据的重新拆解。这是我认为一个 AI 产品经理最该被评估的能力。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 收费 ============ -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-h reveal">
+      <div class="sec-no">收费方式 · PRICING</div>
+      <div class="sec-t">不成功，不收钱</div>
+      <div class="sec-d">个人权益类产品的收费逻辑只有一个站得住：钱到账了，才配谈钱。</div>
+    </div>
+    <div class="price-grid">
+      <div class="price-card reveal">
+        <div class="price-name">基础版</div>
+        <div class="price-amt">¥0<small> / 永久免费</small></div>
+        <div class="price-for">先看看自己睡了多少钱</div>
+        <ul class="price-list">
+          <li>授权数据源接入</li>
+          <li>每月 3 项权益发现</li>
+          <li>权益卡与依据查看</li>
+          <li>EV 智能闸门</li>
+        </ul>
+      </div>
+      <div class="price-card hot reveal reveal-d1">
+        <div class="price-name">个人会员 <span class="pill g">推荐</span></div>
+        <div class="price-amt">¥19<small> / 月</small></div>
+        <div class="price-for">把「盯着」这件事彻底交给归仓</div>
+        <ul class="price-list">
+          <li>无限次主动监控巡航</li>
+          <li>全品类数据源接入</li>
+          <li>执行进度实时追踪</li>
+          <li>材料包与审计导出</li>
+        </ul>
+      </div>
+      <div class="price-card reveal reveal-d2">
+        <div class="price-name">成功抽成</div>
+        <div class="price-amt">10–20<small>% / 到账</small></div>
+        <div class="price-for">零预付，钱到账才结算</div>
+        <ul class="price-list">
+          <li>未到账 = 不收费</li>
+          <li>大额阶梯递减抽成</li>
+          <li>到账凭证可对账</li>
+          <li>参照：代退黑产约 30%</li>
+        </ul>
+      </div>
+      <div class="price-card reveal reveal-d3">
+        <div class="price-name">机构版</div>
+        <div class="price-amt">询价<small> / 按件</small></div>
+        <div class="price-for">保险 / 银行 / 平台</div>
+        <ul class="price-list">
+          <li>按成功兑付件数结算</li>
+          <li>提升领取率 · 降低投诉量</li>
+          <li>年度服务与数据回流</li>
+          <li>合规开放接口接入</li>
+        </ul>
+      </div>
+    </div>
+    <p class="src">* 以上为概念演示定价；真实产品由权益图谱历史数据校准后确定，B 端按成功兑付件数与年度服务费结算。</p>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-h reveal">
+      <div class="sec-no">常见问题 · FAQ</div>
+      <div class="sec-t">你可能想问</div>
+    </div>
+    <div class="faq">
+      <div class="faq-item reveal">
+        <div class="faq-q">我的账单、保单数据安全吗？<span class="faq-plus"></span></div>
+        <div class="faq-a"><div class="faq-a-in">最小必要授权、分级授权、随时可撤销、数据可导出。凡涉及个人敏感信息外发（如身份证件），一律触发 L2 显式授权并单独留痕，默认不执行。</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">不成功真的不收费吗？<span class="faq-plus"></span></div>
+        <div class="faq-a"><div class="faq-a-in">C 端按结果计费——钱实际到账后才按比例抽成。EV 闸门保证只推送值得办的权益，不会为了收费而打扰你。</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">归仓和律师有什么区别？<span class="faq-plus"></span></div>
+        <div class="faq-a"><div class="faq-a-in">归仓不替代律师、不做法律代理。它做的是「武装用户」：依据、材料、话术与全程追踪。涉及诉讼或复杂案件，仍建议转交专业律师。</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">银行、保险公司不是会提醒吗？<span class="faq-plus"></span></div>
+        <div class="faq-a"><div class="faq-a-in">它们只看自家、出于合规压力、且正是被你当成诈骗的那条短信。归仓跨源、站在你这一侧、每张权益卡都附可复核的条款原文。</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">怎么开始用？<span class="faq-plus"></span></div>
+        <div class="faq-a"><div class="faq-a-in">三步：① 授权你愿意的数据源；② 等归仓完成首次巡航报告；③ 对看得上的权益一键授权，剩下的交给它。</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">这是真实产品吗？<span class="faq-plus"></span></div>
+        <div class="faq-a"><div class="faq-a-in">本页为 AI 产品经理作品集概念演示：数据均来自官方公开披露并标注来源，交互为可运行原型，不构成任何法律建议。</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand"><span class="dot"></span>归仓 Reclaim</div>
+        <p class="foot-pos">主动式个人权益 Agent。持续替你发现并兑现「应得而未得」的权益——钱到账，才算数。</p>
+      </div>
+      <div>
+        <div class="foot-h">产品</div>
+        <ul class="foot-links">
+          <li><a href="#how">工作流程</a></li>
+          <li><a href="#features">核心功能</a></li>
+          <li><a href="#demo">交互演示</a></li>
+          <li><a href="interactive-demo/index.html">MVP 工作台 ↗</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-h">为什么是归仓</div>
+        <ul class="foot-links">
+          <li><a href="#pain">痛点</a></li>
+          <li><a href="#evidence">需求铁证</a></li>
+          <li><a href="#compare">差异化对比</a></li>
+          <li><a href="#pricing">收费方式</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-h">设计原理</div>
+        <ul class="foot-links">
+          <li><a href="#product">产品架构</a></li>
+          <li><a href="#metrics">指标体系</a></li>
+          <li><a href="#business">商业化</a></li>
+          <li><a href="#faq">常见问题</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="footYear">2026</span> 归仓 Reclaim · AI 产品设计作品集概念演示</span>
+      <span>外部数据均标注来源可复核；交互原型为概念演示，不构成任何法律建议。</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- bar animation ---------- */
+  var bars = document.querySelectorAll('#bars1 .bar-fl');
+  function runBars(){
+    for(var i=0;i<bars.length;i++){
+      (function(el){
+        var w = el.getAttribute('data-w');
+        el.style.width = '0%';
+        setTimeout(function(){ el.style.width = w + '%'; }, 120);
+      })(bars[i]);
+    }
+  }
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ runBars(); io.disconnect(); } });
+    },{threshold:.35});
+    io.observe(document.getElementById('bars1'));
+  }else{ runBars(); }
+
+  /* ---------- demo state ---------- */
+  var step1 = document.getElementById('step1');
+  var step2 = document.getElementById('step2');
+  var flow  = document.getElementById('flow');
+  var chat  = document.getElementById('chat');
+  var audit = document.getElementById('audit');
+  var chatWrap   = document.getElementById('chatWrap');
+  var auditWrap  = document.getElementById('auditWrap');
+  var resultWrap = document.getElementById('resultWrap');
+  var execTitle  = document.getElementById('execTitle');
+  var sp = [null,document.getElementById('sp1'),document.getElementById('sp2'),document.getElementById('sp3'),document.getElementById('sp4')];
+  var timers = [];
+
+  function clearTimers(){ for(var i=0;i<timers.length;i++){ clearTimeout(timers[i]); } timers=[]; }
+  function later(fn,ms){ var t=setTimeout(fn,ms); timers.push(t); return t; }
+
+  function setStepPill(n){
+    for(var i=1;i<=4;i++){
+      sp[i].className = 'step-pill' + (i===n ? ' on' : (i<n ? ' done' : ''));
+    }
+  }
+  function markAllDone(){
+    for(var i=1;i<=4;i++){ sp[i].className = 'step-pill done'; }
+  }
+
+  /* ---------- entitlement cards expand ---------- */
+  var cards = document.querySelectorAll('.ecard[data-id="1"],.ecard[data-id="2"],.ecard[data-id="3"]');
+  for(var c=0;c<cards.length;c++){
+    (function(card){
+      var head = card.querySelector('.ec-head');
+      head.addEventListener('click', function(){
+        var wasSel = card.classList.contains('sel');
+        for(var i=0;i<cards.length;i++){ cards[i].classList.remove('sel'); }
+        if(!wasSel){ card.classList.add('sel'); setStepPill(2); }
+        else { setStepPill(1); }
+      });
+    })(cards[c]);
+  }
+
+  /* ---------- scenarios ---------- */
+  var SCEN = {
+    "1": {
+      title: "航班延误补偿 · CA1836 — 兑现中",
+      flows: [
+        {t:"材料 Agent", d:"从你授权的航旅记录中提取登机牌与实际起降时间；调用公开航班数据源核验延误原因，归类为承运人原因。", s:"ok"},
+        {t:"文书 Agent", d:"按该承运人《运输总条件》的补偿申请格式生成材料包，附条款引用与举证清单。", s:"ok"},
+        {t:"协商 Agent", d:"以你的名义向承运人提交申请，进入多轮对话（下方为逐字记录）。", s:"ok"},
+        {t:"升级 Agent", d:"监测到第 6 个工作日仍未给出处理方案，按《公共航空运输旅客服务管理规定》第 52 条发出时限提示。", s:"ok"},
+        {t:"追踪 Agent", d:"第 7 个工作日，承运人确认补偿并出具处理方案。", s:"ok"}
+      ],
+      chat: [
+        {r:"agent", n:"归仓 · 协商 Agent", b:"您好，我是李婷女士的授权助理。就 2026 年 8 月 12 日 <span class='q'>CA1836</span>（北京首都→上海虹桥）航班申请核验延误补偿资格。实际出港延误 4 小时 12 分，已实际乘机；当前短信记录标注为机务原因。如经贵司核验属承运人原因，依现行《运输总条件》对应补偿标准为 <span class='amt'>¥200</span>。"},
+        {r:"cs", n:"承运人客服", b:"您好，经查询该航班延误系<span class='q'>流量控制</span>原因，不属于承运人原因，不符合补偿标准，抱歉无法为您办理。"},
+        {r:"agent", n:"归仓 · 协商 Agent", b:"当前客服口径与用户收到的“机务原因”短信存在冲突。我不预设哪一方正确，请贵司核验并告知本航班的最终延误原因，以便判断是否适用补偿条款。"},
+        {r:"sys", n:"系统 · 合规闸门", b:"检测到对方主张与公开数据存在冲突。已生成材料补强请求，<b>全程未使用任何虚构事实</b>，仅要求对方履行举证责任。"},
+        {r:"cs", n:"承运人客服", b:"已为您复核，确因我司机组调度原因导致延误。补偿申请已受理，请在系统中补充收款账户信息。"},
+        {r:"agent", n:"归仓 · 协商 Agent", b:"已补充。另依据《公共航空运输旅客服务管理规定》第五十二条，请贵司在收到申请之日起 <span class='q'>10 个工作日内</span>给出包含解决方案的处理结果。我将在第 6 个工作日跟进；如届时无结果，将向民航局消费者事务中心提交投诉。"},
+        {r:"sys", n:"系统 · 追踪 Agent", b:"情景演示：第 7 个工作日，承运人核验后确认属于机务原因，对应补偿 <span class='amt'>¥200</span>。此结果仅为产品流程演示，不是真实代办记录。"}
+      ],
+      audit: [
+        ["09:14","发现","主动巡检命中权益规则 ENT-AV-004，EV ¥321.6","ok"],
+        ["09:41","判定","依据 3 条，全部可溯源至公开条款与备案文本","ok"],
+        ["10:05","授权","用户 L1 一键确认，授权范围：提交补偿申请","ok"],
+        ["10:06","材料","自动收集举证 3 项，未外发任何额外个人信息","ok"],
+        ["10:08","合规","话术校验通过：0 处虚假陈述，0 处越权表述","ok"],
+        ["10:09","发送","以用户名义提交至承运人官方通道","ok"],
+        ["D+2","协商","对方以流量控制为由拒赔，Agent 要求其履行举证责任","w"],
+        ["D+6","升级","发出 10 个工作日时限提示，引用第 52 条","w"],
+        ["D+7","演示结果","承运人核验后确认补偿 ¥200","ok"],
+        ["D+9","模拟结算","¥200 模拟到账，用于演示对账链路","ok"]
+      ],
+      amount: "¥200",
+      meta: "CA1836 航班延误补偿情景 · 模拟 9 天闭环 · 若按结果计费 15%（¥30），用户净得 ¥170"
+    },
+    "2": {
+      title: "会员自动续费未显著提醒 — 兑现中",
+      flows: [
+        {t:"材料 Agent", d:"提取 5 期扣款流水；对邮箱与短信做全量检索，确认每期扣费前 7 天内无任何提醒记录（0 命中）。", s:"ok"},
+        {t:"文书 Agent", d:"依据《消保条例》第十条生成退费申请，附扣款流水与「无提醒」检索结论。", s:"ok"},
+        {t:"协商 Agent", d:"向平台客服提交退费申请并进入协商（下方为逐字记录）。", s:"ok"},
+        {t:"升级 Agent", d:"平台以「已尽告知义务」为由拒绝后，判定证据充分，升级至 12315 平台投诉。", s:"ok"},
+        {t:"追踪 Agent", d:"12315 转办后，平台主动联系并同意退费。", s:"ok"}
+      ],
+      chat: [
+        {r:"agent", n:"归仓 · 协商 Agent", b:"您好。本人自 2026 年 3 月起被该账户连续扣取会员费 5 期，每期 <span class='amt'>¥25</span>，合计 <span class='amt'>¥125</span>。在每期自动续费日之前，本人未收到任何形式的显著提醒。依据《消费者权益保护法实施条例》第十条，经营者采取自动续费方式提供服务的，应当在自动续费日期前<b>以显著方式提请消费者注意</b>。附件为 5 期扣款流水。"},
+        {r:"cs", n:"平台客服", b:"您好，我们在 App 内协议中已告知续费规则，且首页有公告，视为已尽告知义务，不支持退费。"},
+        {r:"agent", n:"归仓 · 协商 Agent", b:"协议条款的存在不等于「以显著方式提请注意」。我已对用户邮箱与短信做全量检索，<span class='q'>5 个续费周期、每期前 7 天内，提醒类信息命中数为 0</span>。请贵司提供向该用户单独发送续费提醒的送达记录。"},
+        {r:"sys", n:"系统 · 合规闸门", b:"已核验：本次主张仅陈述可验证的事实（扣款流水 + 检索结论），<b>不存在虚构或夸大</b>。建议升级路径：12315 平台。"},
+        {r:"cs", n:"平台客服", b:"已记录您的诉求，目前维持原处理结果。"},
+        {r:"agent", n:"归仓 · 升级 Agent", b:"依据已充分，已代用户向全国 12315 平台提交投诉，投诉要点：未履行《消保条例》第十条规定的显著提醒义务。投诉编号已同步至用户。"},
+        {r:"sys", n:"系统 · 追踪 Agent", b:"第 5 个工作日 15:40，平台客服主动致电，同意退还未经显著提醒的 <span class='amt'>¥125</span>，并关闭自动续费。"}
+      ],
+      audit: [
+        ["09:14","发现","账单周期性扣费识别 + 提醒缺失检索，EV ¥76.8","ok"],
+        ["09:52","判定","依据《消保条例》第十条，可溯源至国务院令第 778 号","ok"],
+        ["11:20","授权","用户 L1 一键确认，授权范围：提交退费申请","ok"],
+        ["11:22","材料","扣款流水 5 条 + 无提醒检索结论（0 命中）","ok"],
+        ["11:24","合规","话术校验通过：0 处虚假陈述","ok"],
+        ["11:25","发送","提交至平台客服通道","ok"],
+        ["D+1","协商","平台以「已尽告知义务」拒绝","w"],
+        ["D+2","升级","证据充分，升级至 12315 平台投诉","w"],
+        ["D+5","成功","平台主动联系，同意退费 ¥125","ok"],
+        ["D+8","到账","¥125 已到账，自动续费已关闭","ok"]
+      ],
+      amount: "¥125",
+      meta: "会员自动续费退费 · 自授权至到账 8 天 · 按结果计费 20%（¥25），用户净得 ¥100"
+    },
+    "3": {
+      title: "保单满期金未领取 — 兑现中",
+      flows: [
+        {t:"材料 Agent", d:"从保单短信中提取保单号与满期日；账单流水确认满期日后 163 天无入账。", s:"ok"},
+        {t:"合规闸门", d:"涉及身份证件外发，触发 L2 显式授权。已暂停并请求用户单独确认（这是设计，不是故障）。", s:"ok"},
+        {t:"文书 Agent", d:"按保险公司线上申领要求生成材料包与给付申请书。", s:"ok"},
+        {t:"协商 Agent", d:"向保险公司提交满期金给付申请（下方为逐字记录）。", s:"ok"},
+        {t:"追踪 Agent", d:"保险公司核验后完成给付，资金到账。", s:"ok"}
+      ],
+      chat: [
+        {r:"agent", n:"归仓 · 协商 Agent", b:"您好。投保人李婷名下保单（保单号已提供）于 <span class='q'>2026-03-18</span> 满期，截至今日已满 163 天，未收到任何满期生存金给付。依据保单条款约定的满期给付责任，以及金融监管总局人身保险「睡眠保单」清理专项要求，现申请办理满期金给付，金额 <span class='amt'>¥48,000</span>。"},
+        {r:"sys", n:"系统 · 合规闸门", b:"本次申领需向保险公司外发投保人<b>身份证件影像</b>，已触发 <b>L2 显式授权</b>。已暂停流程并向用户单独请求确认——涉及个人敏感信息外发的动作，默认不执行。"},
+        {r:"agent", n:"归仓 · 协商 Agent", b:"已取得用户 L2 单独授权（授权记录已留痕，可随时撤销）。材料包已加密提交，仅用于本次给付核验。"},
+        {r:"cs", n:"保险公司客服", b:"您好，已查询到该保单确已期满且未给付。因超过常规领取期，需补充投保人身份证明与银行账户信息，我们将走特殊给付流程。"},
+        {r:"agent", n:"归仓 · 协商 Agent", b:"已在授权范围内补充。请告知本次特殊流程的预计办结时限，我方将按该时限跟进。"},
+        {r:"cs", n:"保险公司客服", b:"预计 5–7 个工作日完成核验与给付。"},
+        {r:"sys", n:"系统 · 追踪 Agent", b:"第 6 个工作日 11:05，保险金 <span class='amt'>¥48,000</span> 已汇入指定账户，电子批单已归档至用户权益档案。"}
+      ],
+      audit: [
+        ["09:14","发现","保单短信识别 + 账单无入账交叉验证，EV ¥43,612","ok"],
+        ["09:58","判定","依据保单条款 + 金融监管总局睡眠保单清理专项，可溯源","ok"],
+        ["10:30","授权","触发 L2 显式授权（身份证件外发），已暂停并单独请求确认","w"],
+        ["10:34","授权","用户完成 L2 单独授权，授权范围限定为本次给付核验","ok"],
+        ["10:36","材料","保单号 + 身份证明 + 收款账户，加密提交","ok"],
+        ["10:37","合规","话术校验通过；敏感信息外发范围已限定并留痕","ok"],
+        ["D+1","协商","保险公司确认保单期满未给付，走特殊给付流程","ok"],
+        ["D+6","成功","保险金 ¥48,000 完成给付","ok"],
+        ["D+6","到账","¥48,000 已到账，电子批单已归档","ok"]
+      ],
+      amount: "¥48,000",
+      meta: "保单满期金给付 · 自授权至到账 6 天 · 按结果计费 8%（大额阶梯，¥3,840），用户净得 ¥44,160"
+    }
+  };
+
+  /* ---------- run ---------- */
+  function execScenario(id){
+    var s = SCEN[id];
+    if(!s){ return; }
+    clearTimers();
+
+    step1.style.display = 'none';
+    step2.style.display = 'block';
+    execTitle.textContent = s.title;
+    flow.innerHTML = '';
+    chat.innerHTML = '';
+    audit.innerHTML = '';
+    chatWrap.style.display = 'none';
+    auditWrap.style.display = 'none';
+    resultWrap.style.display = 'none';
+
+    setStepPill(3);
+
+    /* build flow nodes */
+    var nodes = [];
+    for(var i=0;i<s.flows.length;i++){
+      var f = s.flows[i];
+      var d = document.createElement('div');
+      d.className = 'fnode';
+      var last = (i === s.flows.length - 1);
+      d.innerHTML =
+        '<div class="f-rail">' +
+          '<div class="f-dot">' + (i+1) + '</div>' +
+          (last ? '' : '<div class="f-line"></div>') +
+        '</div>' +
+        '<div class="f-c">' +
+          '<div class="f-t">' + f.t + '</div>' +
+          '<div class="f-d">' + f.d + '</div>' +
+        '</div>';
+      flow.appendChild(d);
+      nodes.push(d);
+    }
+
+    var delay = 260;
+    for(var j=0;j<nodes.length;j++){
+      (function(idx, node){
+        later(function(){ node.classList.add('in'); }, delay);
+        later(function(){ node.classList.add('run'); }, delay + 80);
+        later(function(){
+          node.classList.remove('run');
+          node.classList.add('ok');
+          var dot = node.querySelector('.f-dot');
+          dot.textContent = '✓';
+        }, delay + 900);
+        delay += 560;
+      })(j, nodes[j]);
+    }
+
+    /* chat */
+    later(function(){
+      chatWrap.style.display = 'block';
+      var msgs = s.chat, cd = 0;
+      for(var k=0;k<msgs.length;k++){
+        (function(m, d2){
+          later(function(){
+            var el = document.createElement('div');
+            el.className = 'msg ' + m.r;
+            el.innerHTML =
+              '<div class="m-av">' + (m.r==='agent' ? 'AI' : (m.r==='cs' ? '客' : '系')) + '</div>' +
+              '<div class="m-c"><div class="m-n">' + m.n + '</div>' +
+              '<div class="m-b">' + m.b + '</div></div>';
+            chat.appendChild(el);
+            el.scrollIntoView({behavior:'smooth', block:'nearest'});
+          }, d2);
+        })(msgs[k], cd);
+        cd += 620;
+      }
+    }, delay + 200);
+
+    /* audit */
+    var auditDelay = delay + 300 + s.chat.length * 620;
+    later(function(){
+      auditWrap.style.display = 'block';
+      var head = document.createElement('div');
+      head.className = 'au-h';
+      head.innerHTML = '<span>全过程审计日志 · 每一步可回溯</span><span>共 ' + s.audit.length + ' 条</span>';
+      audit.appendChild(head);
+      var ad = 0;
+      for(var a=0;a<s.audit.length;a++){
+        (function(row, d3){
+          later(function(){
+            var el = document.createElement('div');
+            el.className = 'au-r';
+            el.innerHTML =
+              '<span>' + row[0] + '</span>' +
+              '<span class="' + (row[3]==='ok' ? 'au-ok' : 'au-w') + '">' + row[1] + '</span>' +
+              '<span class="au-a">' + row[2] + '</span>';
+            audit.appendChild(el);
+          }, d3);
+        })(s.audit[a], ad);
+        ad += 100;
+      }
+    }, auditDelay);
+
+    /* result */
+    later(function(){
+      resultWrap.style.display = 'block';
+      document.getElementById('resV').textContent = s.amount;
+      document.getElementById('resM').textContent = s.meta;
+      markAllDone();
+      resultWrap.scrollIntoView({behavior:'smooth', block:'center'});
+    }, auditDelay + 300 + s.audit.length * 100);
+  }
+
+  var runBtns = document.querySelectorAll('[data-run]');
+  for(var r=0;r<runBtns.length;r++){
+    (function(btn){
+      btn.addEventListener('click', function(ev){
+        ev.stopPropagation();
+        execScenario(btn.getAttribute('data-run'));
+      });
+    })(runBtns[r]);
+  }
+
+  function backToList(){
+    clearTimers();
+    step2.style.display = 'none';
+    step1.style.display = 'block';
+    setStepPill(1);
+  }
+
+  document.getElementById('backBtn').addEventListener('click', backToList);
+  document.getElementById('otherBtn').addEventListener('click', backToList);
+  document.getElementById('againBtn').addEventListener('click', function(){
+    var key = (execTitle.textContent.indexOf('CA1836') > -1) ? '1'
+            : (execTitle.textContent.indexOf('保单') > -1) ? '3' : '2';
+    execScenario(key);
+  });
+
+  window.addEventListener('beforeunload', clearTimers);
+})();
+</script>
+<script>
+(function(){
+  "use strict";
+
+  /* reveal on scroll */
+  var revealEls=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var rio=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target); } });
+    },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+    revealEls.forEach(function(el){ rio.observe(el); });
+  }else{
+    revealEls.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* count-up numbers */
+  function fmt(n,dec){ return dec ? n.toFixed(dec) : Math.round(n).toString(); }
+  function animateCount(el){
+    var target=parseFloat(el.getAttribute('data-count'));
+    var dec=parseInt(el.getAttribute('data-dec')||'0',10);
+    var dur=parseInt(el.getAttribute('data-dur')||'1500',10);
+    var t0=null;
+    function step(ts){
+      if(!t0)t0=ts;
+      var p=Math.min((ts-t0)/dur,1);
+      var ease=1-Math.pow(1-p,3);
+      el.textContent=fmt(target*ease,dec);
+      if(p<1)requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var counters=document.querySelectorAll('.counter');
+  if('IntersectionObserver' in window && counters.length){
+    var cio=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ animateCount(e.target); cio.unobserve(e.target); } });
+    },{threshold:.5});
+    counters.forEach(function(el){ cio.observe(el); });
+  }else{
+    counters.forEach(function(el){ el.textContent=fmt(parseFloat(el.getAttribute('data-count')),parseInt(el.getAttribute('data-dec')||'0',10)); });
+  }
+
+  /* nav active highlight */
+  var navLinks=document.querySelectorAll('.nav-links a[href^="#"]');
+  var secMap={};
+  navLinks.forEach(function(a){
+    var id=a.getAttribute('href').slice(1);
+    var sec=document.getElementById(id);
+    if(sec) secMap[id]=a;
+  });
+  if('IntersectionObserver' in window && Object.keys(secMap).length){
+    var nio=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          navLinks.forEach(function(a){ a.classList.remove('act'); });
+          var a=secMap[e.target.id];
+          if(a) a.classList.add('act');
+        }
+      });
+    },{threshold:.15,rootMargin:'-80px 0px -60% 0px'});
+    Object.keys(secMap).forEach(function(id){ nio.observe(document.getElementById(id)); });
+  }
+
+  /* faq toggle */
+  document.querySelectorAll('.faq-q').forEach(function(q){
+    q.addEventListener('click',function(){
+      var item=q.parentElement;
+      var ans=item.querySelector('.faq-a');
+      var open=item.classList.toggle('open');
+      ans.style.maxHeight=open ? ans.scrollHeight+'px' : '0px';
+    });
+  });
+
+  /* year */
+  var y=document.getElementById('footYear');
+  if(y) y.textContent=new Date().getFullYear();
+})();
+</script>
+</body>
+</html>

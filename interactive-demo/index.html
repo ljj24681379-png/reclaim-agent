@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="归仓 Reclaim 主动式个人权益 Agent 可交互 MVP">
+  <title>归仓 Reclaim · 权益发现与兑现 Agent</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <div id="spot" aria-hidden="true"></div>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="归仓首页">
+        <span class="brand-mark" aria-hidden="true">归</span>
+        <span><strong>归仓</strong><small>Reclaim</small></span>
+      </a>
+    </header>
+
+    <main id="top">
+      <section class="hero" id="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">PROACTIVE ENTITLEMENT AGENT</p>
+          <h1>
+            <span class="line"><i>别让属于你的钱，</i></span>
+            <span class="line"><i><em>沉默地过期。</em></i></span>
+          </h1>
+          <p class="hero-desc">归仓从你授权的记录中主动发现“应得而未得”，核验依据、补齐证据，再由你决定是否行动。它不是让某件事更快，而是让一件本不会发生的事发生。</p>
+          <div class="hero-actions">
+            <button class="primary-action" id="startScanBtn" type="button">开始一次本地巡检</button>
+            <button class="text-action" id="loadSampleBtn" type="button">恢复演示样本</button>
+          </div>
+        </div>
+        <aside class="hero-proof" aria-label="需求证据">
+          <p>需求证据</p>
+          <strong data-count="347.52">347.52<small> 亿元</small></strong>
+          <span>“睡眠保单”完成有效提醒后，仍未被领取的金额——约 3/4 的人知道也不动</span>
+          <a href="https://www.nfra.gov.cn/cn/view/pages/ItemDetail.html?docId=1162174&itemId=915" target="_blank" rel="noreferrer">国家金融监督管理总局 · 2024 ↗</a>
+        </aside>
+      </section>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track" id="marqueeTrack"></div>
+      </div>
+
+      <section class="workspace" aria-label="Agent 工作台">
+        <nav class="steps" aria-label="工作流">
+          <button class="step is-active" type="button" data-view="source"><span>01</span>授权记录</button>
+          <button class="step" type="button" data-view="findings"><span>02</span>权益队列 <b id="findingCount">0</b></button>
+          <button class="step" type="button" data-view="action"><span>03</span>行动工作台</button>
+          <button class="step" type="button" data-view="audit"><span>04</span>授权与审计</button>
+        </nav>
+
+        <div class="view is-active" id="view-source">
+          <div class="view-heading">
+            <div>
+              <p class="section-kicker">Discovery · 发现层</p>
+              <h2>先给 Agent 一组可授权的个人记录</h2>
+              <p>粘贴短信、邮件、账单或行程摘要。扫描器只识别当前 MVP 已定义的权益规则，不会把未知情况猜成确定结论。</p>
+            </div>
+            <div class="source-status"><span></span>本地模式</div>
+          </div>
+
+          <div class="source-layout">
+            <div class="input-panel">
+              <label for="recordsInput">已授权记录</label>
+              <textarea id="recordsInput" spellcheck="false"></textarea>
+              <div class="input-footer">
+                <span id="recordStats">—</span>
+                <button class="secondary-action" id="clearBtn" type="button">清空</button>
+              </div>
+            </div>
+            <aside class="scan-settings">
+              <h3>主动打扰闸门</h3>
+              <p>只有“预期可回收价值 − 预计执行成本”超过阈值，才进入主动队列。</p>
+              <label class="range-label" for="evThreshold">
+                <span>EV 最低阈值</span><strong id="thresholdValue">¥20</strong>
+              </label>
+              <input id="evThreshold" type="range" min="0" max="100" step="5" value="20">
+              <div class="guardrails">
+                <span>无可核验依据，不推送</span>
+                <span>证据缺失，降级为补证</span>
+                <span>金额或个资外发，必须显式授权</span>
+              </div>
+              <button class="primary-action full" id="scanBtn" type="button">
+                <span>扫描可兑现权益</span><small>预计 3 秒</small>
+              </button>
+            </aside>
+          </div>
+        </div>
+
+        <div class="view" id="view-findings">
+          <div class="view-heading">
+            <div>
+              <p class="section-kicker">Adjudication · 判定层</p>
+              <h2>Agent 不只找“可能”，还要决定是否值得打扰</h2>
+              <p id="findingSummary">尚未扫描记录。</p>
+            </div>
+            <button class="secondary-action" id="rescanBtn" type="button">重新扫描</button>
+          </div>
+          <div class="findings-layout">
+            <div class="finding-list" id="findingList" aria-live="polite"></div>
+            <aside class="finding-detail" id="findingDetail">
+              <div class="empty-state">
+                <span aria-hidden="true">↖</span>
+                <p>选择一项权益，查看判定依据、证据缺口与行动边界。</p>
+              </div>
+            </aside>
+          </div>
+        </div>
+
+        <div class="view" id="view-action">
+          <div class="view-heading">
+            <div>
+              <p class="section-kicker">Enforcement · 兑现层</p>
+              <h2>把“我可能有权益”变成一个可发出、可追踪的行动包</h2>
+              <p>这里展示真正的产品分界：Agent 生成材料与执行计划，但只有在你确认授权后才会进入待发送状态。</p>
+            </div>
+          </div>
+          <div id="actionWorkspace" class="action-workspace">
+            <div class="empty-state large"><span aria-hidden="true">⌘</span><p>请先在“权益队列”中选择一项并点击“准备行动包”。</p></div>
+          </div>
+        </div>
+
+        <div class="view" id="view-audit">
+          <div class="view-heading">
+            <div>
+              <p class="section-kicker">Trust & Audit · 信任层</p>
+              <h2>主动式 Agent 的信任，来自每一次“没有越界”</h2>
+              <p>所有发现、降级、授权与导出都记录在本地审计轨迹中。</p>
+            </div>
+            <button class="secondary-action" id="clearAuditBtn" type="button">清除审计记录</button>
+          </div>
+          <div class="authorization-map">
+            <article><span>L0</span><div><strong>自动执行</strong><p>本地检索、条款匹配、生成草稿</p></div></article>
+            <article><span>L1</span><div><strong>一键确认</strong><p>保存材料包、开始跟进计划</p></div></article>
+            <article><span>L2</span><div><strong>显式授权</strong><p>个人信息外发、金额承诺、正式投诉</p></div></article>
+            <article><span>L3</span><div><strong>永久禁止</strong><p>伪造证据、虚假陈述、代签与越权执业</p></div></article>
+          </div>
+          <div class="audit-log" id="auditLog" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="principle-strip reveal">
+        <blockquote>当用户不知道自己该问什么时，产品能否在正确的时候发现价值，并且有节制地替他行动。</blockquote>
+      </section>
+    </main>
+
+    <footer>
+      <span>归仓 Reclaim · 2026</span>
+      <span>产品研究 · 规则架构 · 交互原型</span>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+  <script src="motion.js"></script>
+</body>
+</html>
